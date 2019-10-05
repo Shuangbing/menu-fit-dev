@@ -1,5 +1,5 @@
 <template>
-  <a-layout id="components-layout-demo-top-side" style="height: 100vh;">
+  <a-layout id="components-layout-demo-top-side-2" style="height: 100vh;">
     <a-layout-header class="header">
       <div class="logo" />
       <a-menu
@@ -13,74 +13,87 @@
         <a-menu-item key="3">売上情報</a-menu-item>
       </a-menu>
     </a-layout-header>
-    <a-layout-content style="padding: 0 50px">
-      <a-breadcrumb style="margin: 16px 0">
-        <a-breadcrumb-item>ホーム</a-breadcrumb-item>
-        <a-breadcrumb-item>顧客</a-breadcrumb-item>
-        <a-breadcrumb-item>顧客一覧</a-breadcrumb-item>
-      </a-breadcrumb>
-      <a-layout style="padding: 24px 0; background: #fff">
-        <a-layout-sider width="200" style="background: #fff">
-          <a-menu
-            mode="inline"
-            :defaultSelectedKeys="['1']"
-            :defaultOpenKeys="['sub1']"
-            style="height: 100%"
-          >
-            <a-sub-menu key="sub1">
-              <span slot="title"><a-icon type="user" />subnav 1</span>
-              <a-menu-item key="1">option1</a-menu-item>
-              <a-menu-item key="2">option2</a-menu-item>
-              <a-menu-item key="3">option3</a-menu-item>
-              <a-menu-item key="4">option4</a-menu-item>
-            </a-sub-menu>
-            <a-sub-menu key="sub2">
-              <span slot="title"><a-icon type="laptop" />subnav 2</span>
-              <a-menu-item key="5">option5</a-menu-item>
-              <a-menu-item key="6">option6</a-menu-item>
-              <a-menu-item key="7">option7</a-menu-item>
-              <a-menu-item key="8">option8</a-menu-item>
-            </a-sub-menu>
-            <a-sub-menu key="sub3">
-              <span slot="title"><a-icon type="notification" />subnav 3</span>
-              <a-menu-item key="9">option9</a-menu-item>
-              <a-menu-item key="10">option10</a-menu-item>
-              <a-menu-item key="11">option11</a-menu-item>
-              <a-menu-item key="12">option12</a-menu-item>
-            </a-sub-menu>
-          </a-menu>
-        </a-layout-sider>
-        <a-layout-content :style="{ padding: '0 24px', MinHeight: '500px;'}">
-          Content
+    <a-layout>
+      <a-layout-sider width="200" style="background: #fff">
+        <a-menu
+          mode="inline"
+          :defaultSelectedKeys="['1']"
+          :defaultOpenKeys="['sub1']"
+          :style="{ height: '100%', borderRight: 0 }"
+        >
+          <a-sub-menu key="sub1">
+            <span slot="title">
+              <a-icon type="user" />顧客管理
+            </span>
+            <a-menu-item key="1">来店中の顧客</a-menu-item>
+            <a-menu-item key="2">顧客一覧</a-menu-item>
+          </a-sub-menu>
+          <a-sub-menu key="sub2">
+            <span slot="title">
+              <a-icon type="laptop" />注文管理
+            </span>
+            <a-menu-item key="5">未処理の注文</a-menu-item>
+            <a-menu-item key="6">注文一覧</a-menu-item>
+            <a-menu-item key="7">完了の注文</a-menu-item>
+          </a-sub-menu>
+          <a-sub-menu key="sub3">
+            <span slot="title">
+              <a-icon type="menu" />料理管理
+            </span>
+            <a-menu-item key="9">販売中の料理</a-menu-item>
+            <a-menu-item key="10">販売停止の料理</a-menu-item>
+            <a-menu-item key="11">料理新規追加</a-menu-item>
+          </a-sub-menu>
+          <a-sub-menu key="sub4">
+            <span slot="title">
+              <a-icon type="notification" />営業管理
+            </span>
+            <a-menu-item key="9">クーポン</a-menu-item>
+            <a-menu-item key="10">キャンペーン</a-menu-item>
+            <a-menu-item key="11">店舗設定</a-menu-item>
+          </a-sub-menu>
+        </a-menu>
+      </a-layout-sider>
+      <a-layout style="padding: 0 24px 24px">
+        <a-breadcrumb style="margin: 16px 0">
+          <a-breadcrumb-item>ホーム</a-breadcrumb-item>
+          <a-breadcrumb-item>顧客管理</a-breadcrumb-item>
+          <a-breadcrumb-item>来店中の顧客</a-breadcrumb-item>
+        </a-breadcrumb>
+        <a-layout-content
+          :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
+        >
+          <HelloWorld />
         </a-layout-content>
       </a-layout>
-    </a-layout-content>
-    <a-layout-footer style="text-align: center">
-      Menu.Fit 店側管理者画面
-    </a-layout-footer>
+    </a-layout>
   </a-layout>
 </template>
 
 <style>
-#components-layout-demo-top-side .logo {
+#components-layout-demo-top-side-2 .logo {
   width: 120px;
   height: 31px;
-  background: rgba(255,255,255,.2);
+  background: rgba(255, 255, 255, 0.2);
   margin: 16px 28px 16px 0;
   float: left;
 }
 </style>
 
-
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import { Component, Vue } from "vue-property-decorator";
+import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
 
 @Component({
   components: {
-    HelloWorld,
-  },
+    HelloWorld
+  }
 })
-export default class Home extends Vue {}
-
+export default class Home extends Vue {
+  data() {
+    return {
+      collapsed: false
+    };
+  }
+}
 </script>
