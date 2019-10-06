@@ -23,16 +23,22 @@
     "@hasezoey/typegoose": "^6.0.0-32",
     "@nestjs/common": "^6.7.2",
     "@nestjs/core": "^6.7.2",
+    "@nestjs/jwt": "^6.1.1",
     "@nestjs/platform-express": "^6.7.2",
     "@nestjs/swagger": "^3.1.0",
+    "@types/jsonwebtoken": "^8.3.4",
     "@types/mongoose": "^5.5.19",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.10.1",
+    "jsonwebtoken": "^8.5.1",
+    "line-login": "^1.0.14",
     "mongoose": "^5.7.3",
+    "passport-jwt": "^4.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.3",
-    "swagger-ui-express": "^4.1.1"
+    "swagger-ui-express": "^4.1.1",
+    "unirest": "^0.6.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^6.9.0",

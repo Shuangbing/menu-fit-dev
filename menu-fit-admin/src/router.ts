@@ -11,7 +11,11 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
+      children: [
+        { path: '/menu', component: () => import('./components/MenuView.vue') },
+        { path: '/menu/:id', component: () => import('./components/MenuView.vue') },
+      ]
     },
     {
       path: '/about',

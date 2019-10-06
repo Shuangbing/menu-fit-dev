@@ -21,36 +21,16 @@
           :defaultOpenKeys="['sub1']"
           :style="{ height: '100%', borderRight: 0 }"
         >
-          <a-sub-menu key="sub1">
+          <a-sub-menu v-for="item in mainMenu" :key="item.key" :index="item.title">
             <span slot="title">
-              <a-icon type="user" />顧客管理
+              <a-icon :type="item.icon" />
+              {{item.title}}
             </span>
-            <a-menu-item key="1">来店中の顧客</a-menu-item>
-            <a-menu-item key="2">顧客一覧</a-menu-item>
-          </a-sub-menu>
-          <a-sub-menu key="sub2">
-            <span slot="title">
-              <a-icon type="laptop" />注文管理
-            </span>
-            <a-menu-item key="5">未処理の注文</a-menu-item>
-            <a-menu-item key="6">注文一覧</a-menu-item>
-            <a-menu-item key="7">完了の注文</a-menu-item>
-          </a-sub-menu>
-          <a-sub-menu key="sub3">
-            <span slot="title">
-              <a-icon type="menu" />料理管理
-            </span>
-            <a-menu-item key="9">販売中の料理</a-menu-item>
-            <a-menu-item key="10">販売停止の料理</a-menu-item>
-            <a-menu-item key="11">料理新規追加</a-menu-item>
-          </a-sub-menu>
-          <a-sub-menu key="sub4">
-            <span slot="title">
-              <a-icon type="notification" />営業管理
-            </span>
-            <a-menu-item key="9">クーポン</a-menu-item>
-            <a-menu-item key="10">キャンペーン</a-menu-item>
-            <a-menu-item key="11">店舗設定</a-menu-item>
+            <a-menu-item
+              v-for="subItem in item.subMenu"
+              :key="subItem.title"
+              :index="subItem.title"
+            >{{subItem.title}}</a-menu-item>
           </a-sub-menu>
         </a-menu>
       </a-layout-sider>
@@ -63,7 +43,7 @@
         <a-layout-content
           :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
         >
-          <HelloWorld />
+          <router-view to="/menu"></router-view>
         </a-layout-content>
       </a-layout>
     </a-layout>
@@ -82,18 +62,45 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
 
-@Component({
-  components: {
-    HelloWorld
-  }
-})
-export default class Home extends Vue {
+
+export default {
   data() {
     return {
-      collapsed: false
+      collapsed: false,
+      mainMenu: [
+        {
+          icon: "user",
+          title: "顧客管理",
+          key: "user",
+          subMenu: [
+            {
+              title: "来店中の顧客",
+              path: "/user/inshop"
+            },
+            {
+              title: "顧客一覧",
+              path: "/user"
+            },
+          ]
+        },
+        {
+          icon: "menu",
+          title: "料理管理",
+          key: "menu",
+          subMenu: [
+            {
+              title: "料理一覧",
+              path: "/menu"
+            },
+            {
+              title: "料理新規追加",
+              path: "/menu/add"
+            },
+          ]
+        }
+      ]
     };
   }
-}
+};
 </script>

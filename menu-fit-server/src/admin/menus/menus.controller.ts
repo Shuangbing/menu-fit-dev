@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
 import { ApiUseTags, ApiOperation, ApiModelProperty } from '@nestjs/swagger';
-import { MenuModel, Menu } from './menu.model';
+import { MenuModel } from './menu.model';
 import { IsNotEmpty, IsNotIn } from 'class-validator';
 
 class CreateMenuDto {
