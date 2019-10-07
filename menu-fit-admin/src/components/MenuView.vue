@@ -7,6 +7,10 @@
     @change="handleTableChange"
   >
     <template slot="name" slot-scope="name">{{name.first}} {{name.last}}</template>
+    <template slot="action" slot-scope="data">
+      <a-button slot="action" style="margin-right: 10px;" type="primary" @click="$router.push('/menu/'+data._id)">編集</a-button>
+      <a-button slot="action" type="danger">販売停止</a-button>
+    </template>
   </a-table>
 </template>
 <script>
@@ -24,8 +28,14 @@ const columns = [
     width: "20%"
   },
   {
-    title: "Email",
+    title: "販売数",
     dataIndex: "title"
+  },
+  {
+    title: "操作",
+    dataIndex: "",
+    key: "x",
+    scopedSlots: { customRender: "action" }
   }
 ];
 
@@ -58,8 +68,8 @@ export default {
     async fetch(params = {}) {
       console.log("params:", params);
       this.loading = true;
-      await this.$http.get("/admin/menus").then((data) => {
-        console.log(data)
+      await this.$http.get("/admin/menus").then(data => {
+        console.log(data);
         const pagination = { ...this.pagination };
         pagination.total = 200;
         this.loading = false;

@@ -14,7 +14,8 @@ export default new Router({
       component: Home,
       children: [
         { path: '/menu', component: () => import('./components/MenuView.vue') },
-        { path: '/menu/:id', component: () => import('./components/MenuView.vue') },
+        { path: '/menu/add', component: () => import('./components/MenuEditView.vue') },
+        { path: '/menu/:id', component: () => import('./components/MenuEditView.vue') },
         { path: '/user', component: () => import('./components/UserView.vue') },
       ]
     },

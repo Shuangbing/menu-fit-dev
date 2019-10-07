@@ -1,5 +1,5 @@
 <template>
-  <a-layout id="components-layout-demo-top-side-2" style="height: 100vh;">
+  <a-layout id="components-layout-demo-top-side-2" style="height: 100%;">
     <a-layout-header class="header">
       <div class="logo" />
       <a-menu
@@ -42,7 +42,7 @@
           <a-breadcrumb-item>来店中の顧客</a-breadcrumb-item>
         </a-breadcrumb>
         <a-layout-content
-          :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
+          :style="{ background: '#fff', padding: '24px', margin: 0 }"
         >
           <router-view to="/menu"></router-view>
         </a-layout-content>
