@@ -1,6 +1,6 @@
 # Menu.Fit Server & Admin & Client
 
-## Useage
+## Usage
 ### cd menu-fit-admin
 ### yarn build
 ### cd menu-fit-client
