@@ -3,6 +3,8 @@ import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import * as mongoose from 'mongoose';
 import { ValidationPipe } from '@nestjs/common';
+import * as serveStatic from 'serve-static';
+import { join } from 'path';
 
 async function bootstrap() {
 
@@ -23,7 +25,8 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api-docs', app, document);
-
+  app.enableCors();
+  app.use('/web', serveStatic(join(__dirname, '../public')));
   await app.listen(3000);
 }
 bootstrap();

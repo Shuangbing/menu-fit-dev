@@ -1,6 +1,7 @@
-import Vue from 'vue'
-
 import axios from 'axios'
-Vue.prototype.$axios = axios
 
-axios.defaults.baseURL = 'http://localhost:3000'
+const http = axios.create({
+    baseURL: process.env.VUE_APP_API_URL || 'http://localhost:3000',
+})
+
+export default http

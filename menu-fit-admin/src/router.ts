@@ -5,7 +5,7 @@ import Home from './views/Home.vue'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes: [
     {
@@ -15,6 +15,7 @@ export default new Router({
       children: [
         { path: '/menu', component: () => import('./components/MenuView.vue') },
         { path: '/menu/:id', component: () => import('./components/MenuView.vue') },
+        { path: '/user', component: () => import('./components/UserView.vue') },
       ]
     },
     {

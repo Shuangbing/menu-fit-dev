@@ -19,6 +19,7 @@
           mode="inline"
           :defaultSelectedKeys="['1']"
           :defaultOpenKeys="['sub1']"
+          @click="menuClick"
           :style="{ height: '100%', borderRight: 0 }"
         >
           <a-sub-menu v-for="item in mainMenu" :key="item.key" :index="item.title">
@@ -28,7 +29,7 @@
             </span>
             <a-menu-item
               v-for="subItem in item.subMenu"
-              :key="subItem.title"
+              :key="subItem.path"
               :index="subItem.title"
             >{{subItem.title}}</a-menu-item>
           </a-sub-menu>
@@ -61,10 +62,10 @@
 </style>
 
 <script lang="ts">
+//import Vue from 'vue'
 import { Component, Vue } from "vue-property-decorator";
 
-
-export default {
+export default Vue.extend({
   data() {
     return {
       collapsed: false,
@@ -81,7 +82,7 @@ export default {
             {
               title: "顧客一覧",
               path: "/user"
-            },
+            }
           ]
         },
         {
@@ -96,11 +97,17 @@ export default {
             {
               title: "料理新規追加",
               path: "/menu/add"
-            },
+            }
           ]
         }
       ]
     };
+  },
+  methods: {
+    menuClick: function(item: any) {
+      console.log(item);
+      this.$router.push(item.key);
+    }
   }
-};
+});
 </script>

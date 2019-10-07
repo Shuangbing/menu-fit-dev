@@ -6,26 +6,27 @@
     :loading="loading"
     @change="handleTableChange"
   >
-    <template slot="name" slot-scope="name">{{name.first}} {{name.last}}</template>
+    <template slot="avatar" slot-scope="avatar">
+      <a-avatar shape="square" size="large" icon="user" :src="avatar"/>
+    </template>
   </a-table>
 </template>
 <script>
 const columns = [
   {
-    title: "タイトル",
-    dataIndex: "title",
-    sorter: true,
-    width: "20%",
-    scopedSlots: { customRender: "title" }
+    title: "プロフィール写真",
+    dataIndex: "profile.picture",
+    width: "10rem",
+    scopedSlots: { customRender: "avatar" }
   },
   {
-    title: "価格",
-    dataIndex: "price",
+    title: "名前",
+    dataIndex: "profile.name",
     width: "20%"
   },
   {
-    title: "Email",
-    dataIndex: "title"
+    title: "openID",
+    dataIndex: "openID"
   }
 ];
 
@@ -58,7 +59,7 @@ export default {
     async fetch(params = {}) {
       console.log("params:", params);
       this.loading = true;
-      await this.$http.get("/admin/menus").then((data) => {
+      await this.$http.get("/admin/users").then((data) => {
         console.log(data)
         const pagination = { ...this.pagination };
         pagination.total = 200;
