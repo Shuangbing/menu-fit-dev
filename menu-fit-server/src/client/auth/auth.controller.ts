@@ -1,15 +1,21 @@
-import { Controller, Get, Response, Param, Query } from '@nestjs/common';
+import { Controller, Get, Response, Param, Query, Global } from '@nestjs/common';
 import { LineService } from './line/line.service';
 import * as express from 'express';
-import { JwtModule } from '@nestjs/jwt';
 
 const lineService = new LineService();
 
 @Controller('client/auth')
 export class AuthController {
+    
+    
     @Get('login')
     Login(@Response() response: express.Response) {
         return response.redirect(lineService.login());
+    }
+
+    @Get('test1')
+    test1() {
+        return true;
     }
 
     @Get('callback')
