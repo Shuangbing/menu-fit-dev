@@ -8,7 +8,29 @@
         ]"
       />
     </a-form-item>
-
+    <a-form-item v-bind="formItemLayout" label="料理写真">
+      <a-upload
+        name="file"
+        listType="picture-card"
+        class="avatar-uploader"
+        :showUploadList="false"
+        :action="this.$http.defaults.baseURL + '/admin/upload'"
+        
+        @change="handleUpload"
+      >
+        <img
+          width="250"
+          height="250"
+          v-if="this.data.picture"
+          :src="this.$http.defaults.baseURL +'/web/uploads/'+ this.data.picture"
+          alt="avatar"
+        />
+        <div v-else>
+          <a-icon :type="loading ? 'loading' : 'plus'" />
+          <div class="ant-upload-text">アップロード</div>
+        </div>
+      </a-upload>
+    </a-form-item>
     <a-form-item v-bind="formItemLayout" label="金額">
       <a-input-number
         style="width: 10rem;"
@@ -18,6 +40,17 @@
         v-decorator="[
           'price',
           {rules: [{ required: true, message: '金額を入力してください' }], initialValue: '0'}
+        ]"
+      />
+    </a-form-item>
+
+    <a-form-item v-bind="formItemLayout" label="詳細情報">
+      <a-textarea
+        placeholder="詳細情報を入力してください"
+        :autosize="{ minRows: 2, maxRows: 10 }"
+        v-decorator="[
+          'summary',
+          {rules: [{ required: true, message: '詳細情報を入力してください' }], initialValue: ''}
         ]"
       />
     </a-form-item>
@@ -34,6 +67,7 @@
         <a-select-option value="dog">犬</a-select-option>
       </a-select>
     </a-form-item>
+
     <a-form-item v-bind="formItemLayout" label="オプション">
       <a-button type="dashed" style="width: 60%" @click="add">
         <a-icon type="plus" />オプションを追加する
@@ -91,19 +125,29 @@
 
 <script>
 let option_id = 0;
+function getBase64(img, callback) {
+  const reader = new FileReader();
+  reader.addEventListener("load", () => callback(reader.result));
+  reader.readAsDataURL(img);
+}
 export default {
   mounted() {
     this.id = this.$route.params.id;
     this.fetch();
   },
-  data: () => ({
-    formItemLayout: {
-      labelCol: { span: 6 },
-      wrapperCol: { span: 14 }
-    }
-  }),
+  data() {
+    return {
+      data: {},
+      loading: false,
+      formItemLayout: {
+        labelCol: { span: 6 },
+        wrapperCol: { span: 14 }
+      }
+    };
+  },
   async beforeCreate() {
     this.form = this.$form.createForm(this);
+    this.form.getFieldDecorator("picture", {initialValue: '', preserve: true})
     this.form.getFieldDecorator("keys", {
       initialValue: Array.from(new Array(20).keys()),
       preserve: true
@@ -117,6 +161,7 @@ export default {
           const pagination = { ...this.pagination };
           pagination.total = 200;
           this.loading = false;
+          this.data = data.data;
           data.data.keys = Array.from(
             new Array(data.data.options.length).keys()
           );
@@ -142,6 +187,33 @@ export default {
           this.$router.push("/menu");
         }
       });
+    },
+    handleUpload(info) {
+      if (info.file.status === "uploading") {
+        this.loading = true;
+        return;
+      }
+      if (info.file.status === "done") {
+        this.data.picture = info.file.response.filename;
+        this.form.setFieldsValue({picture: this.data.picture});
+        this.loading = false;
+      }
+    },
+    beforeUpload(file) {
+      const isJPG = file.type === "image/jpeg";
+      const isPNG = file.type === "image/png";
+      if (!isJPG && !isPNG) {
+        this.$message.error(
+          "アップロード可能なファイル拡張子はJPG/PNGになります"
+        );
+      }
+      const isLt2M = file.size / 1024 / 1024 < 2;
+      if (!isLt2M) {
+        this.$message.error(
+          "アップロード可能なファイルサイズは２MBのみになります"
+        );
+      }
+      return isJPG && isPNG && isLt2M;
     },
     remove(k) {
       const { form } = this;
@@ -177,4 +249,8 @@ export default {
   height: 180px;
   line-height: 1.5;
 }
+.avatar-uploader > .ant-upload {
+    width: 250px;
+    height: 250px;
+  }
 </style>

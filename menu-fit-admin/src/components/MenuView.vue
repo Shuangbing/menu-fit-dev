@@ -7,14 +7,28 @@
     @change="handleTableChange"
   >
     <template slot="name" slot-scope="name">{{name.first}} {{name.last}}</template>
+    <template slot="picture" slot-scope="picture">
+      <a-avatar shape="square" :size="100" icon="question" :src="'http://localhost:3000/web/uploads/'+picture" />
+    </template>
     <template slot="action" slot-scope="data">
-      <a-button slot="action" style="margin-right: 10px;" type="primary" @click="$router.push('/menu/'+data._id)">編集</a-button>
+      <a-button
+        slot="action"
+        style="margin-right: 10px;"
+        type="primary"
+        @click="$router.push('/menu/'+data._id)"
+      >編集</a-button>
       <a-button slot="action" type="danger">販売停止</a-button>
     </template>
   </a-table>
 </template>
 <script>
 const columns = [
+  {
+    title: "料理写真",
+    dataIndex: "picture",
+    width: "10rem",
+    scopedSlots: { customRender: "picture" }
+  },
   {
     title: "タイトル",
     dataIndex: "title",
@@ -27,7 +41,7 @@ const columns = [
     width: "20%"
   },
   {
-    title: "販売数",
+    title: "販売数"
   },
   {
     title: "操作",

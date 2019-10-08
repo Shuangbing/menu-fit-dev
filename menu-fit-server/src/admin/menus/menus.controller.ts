@@ -51,7 +51,6 @@ export class MenusController {
     @ApiOperation({ title: '指定のメニューの情報を更新する' })
     async update(@Param('id') id: string, @Body() updateMenuDto: CreateMenuDto) {
         await MenuModel.findByIdAndUpdate(id, updateMenuDto);
-        console.log(updateMenuDto)
         return {
             success: true,
         };

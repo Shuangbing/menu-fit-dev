@@ -6,6 +6,10 @@ export class Menu {
     @prop()
     price: string;
     @prop()
+    summary: string;
+    @prop({ default: '' })
+    picture: string;
+    @prop()
     allergies: string[];
     @prop()
     options: [{

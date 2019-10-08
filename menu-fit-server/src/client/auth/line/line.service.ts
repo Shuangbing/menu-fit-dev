@@ -6,21 +6,16 @@ import { UserModel, User } from '../../../admin/users/user.model';
 @Injectable()
 export class LineService {
 
-    CHANNEL_ID = '###';
-    CHANNEL_SECRET = '###';
-    CALLBACK_URL = 'http://localhost:3000/client/auth/callback';
     SCOPE = 'openid profile';
     PROMPT = 'consent';
     BOT_PROMPT: 'normal';
 
     login() {
         return 'https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id='
-            + this.CHANNEL_ID
-            + '&redirect_uri=' + encodeURIComponent(this.CALLBACK_URL)
-            + '&state=12345abcde&scope=openid%20profile&nonce=09876xyz';
+            + process.env.CHANNEL_ID
+            + '&redirect_uri=' + encodeURIComponent(process.env.CALLBACK_URL)
+            + '&state=stateTest&scope=openid%20profile&nonce=nonceTest';
     }
-
-
 
     getAcccessToken(code: string, state: string) {
         const req = unirest('POST', 'https://api.line.me/oauth2/v2.1/token');
@@ -32,9 +27,9 @@ export class LineService {
         req.form({
             grant_type: 'authorization_code',
             code: code,
-            redirect_uri: this.CALLBACK_URL,
-            client_id: this.CHANNEL_ID,
-            client_secret: this.CHANNEL_SECRET,
+            redirect_uri: process.env.CALLBACK_URL,
+            client_id: process.env.CHANNEL_ID,
+            client_secret: process.env.CHANNEL_SECRET,
         });
 
         // tslint:disable-next-line: only-arrow-functions

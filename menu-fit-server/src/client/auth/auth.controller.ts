@@ -6,8 +6,7 @@ const lineService = new LineService();
 
 @Controller('client/auth')
 export class AuthController {
-    
-    
+
     @Get('login')
     Login(@Response() response: express.Response) {
         return response.redirect(lineService.login());

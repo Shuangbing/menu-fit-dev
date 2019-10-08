@@ -8,7 +8,9 @@ import { join } from 'path';
 
 async function bootstrap() {
 
-  mongoose.connect('mongodb://localhost/menu-fit-db', {
+  require('dotenv').config();
+
+  mongoose.connect(process.env.DB_URL, {
     useNewUrlParser: true,
     useFindAndModify: false,
     useCreateIndex: true,
