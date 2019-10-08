@@ -19,7 +19,6 @@ const columns = [
     title: "タイトル",
     dataIndex: "title",
     sorter: true,
-    width: "20%",
     scopedSlots: { customRender: "title" }
   },
   {
@@ -29,7 +28,6 @@ const columns = [
   },
   {
     title: "販売数",
-    dataIndex: "title"
   },
   {
     title: "操作",

@@ -42,7 +42,7 @@
           <a-breadcrumb-item>来店中の顧客</a-breadcrumb-item>
         </a-breadcrumb>
         <a-layout-content
-          :style="{ background: '#fff', padding: '24px', margin: 0 }"
+          :style="{ background: '#fff', padding: '24px', margin: 0 , minHeight: '90vh'}"
         >
           <router-view to="/menu"></router-view>
         </a-layout-content>

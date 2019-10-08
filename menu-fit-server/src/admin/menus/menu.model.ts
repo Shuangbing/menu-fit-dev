@@ -1,19 +1,17 @@
 import { getModelForClass, prop } from '@hasezoey/typegoose';
 
-class MenuOption {
-    @prop()
-    title: string;
-    @prop()
-    price: string;
-}
-
 export class Menu {
     @prop()
     title: string;
     @prop()
     price: string;
     @prop()
-    option: MenuOption[];
+    allergies: string[];
+    @prop()
+    options: [{
+        title: string;
+        price: string;
+    }];
 }
 
 export const MenuModel = getModelForClass(Menu);
