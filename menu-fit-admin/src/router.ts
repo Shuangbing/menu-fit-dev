@@ -17,6 +17,9 @@ export default new Router({
         { path: '/menu/add', component: () => import('./components/MenuEditView.vue') },
         { path: '/menu/:id', component: () => import('./components/MenuEditView.vue') },
         { path: '/user', component: () => import('./components/UserView.vue') },
+        { path: '/table', component: () => import('./components/TableView.vue') },
+        { path: '/table/add', component: () => import('./components/TableEditView.vue') },
+        { path: '/table/:id', component: () => import('./components/TableEditView.vue') },
       ]
     },
     {

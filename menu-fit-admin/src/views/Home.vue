@@ -19,6 +19,7 @@
           mode="inline"
           :defaultSelectedKeys="['1']"
           :defaultOpenKeys="['sub1']"
+          :selectedKeys="liveMenu"
           @click="menuClick"
           :style="{ height: '100%', borderRight: 0 }"
         >
@@ -69,6 +70,7 @@ export default Vue.extend({
   data() {
     return {
       collapsed: false,
+      liveMenu: [],
       mainMenu: [
         {
           icon: "user",
@@ -82,6 +84,32 @@ export default Vue.extend({
             {
               title: "顧客一覧",
               path: "/user"
+            }
+          ]
+        },
+        {
+          icon: "form",
+          title: "注文管理",
+          key: "order",
+          subMenu: [
+            {
+              title: "注文一覧",
+              path: "/order"
+            },
+          ]
+        },
+        {
+          icon: "table",
+          title: "テーブル管理",
+          key: "table",
+          subMenu: [
+            {
+              title: "テーブル一覧",
+              path: "/table"
+            },
+            {
+              title: "テーブル新規追加",
+              path: "/table/add"
             }
           ]
         },
@@ -105,8 +133,8 @@ export default Vue.extend({
   },
   methods: {
     menuClick: function(item: any) {
-      console.log(item);
       this.$router.push(item.key);
+      console.log(this.liveMenu)
     }
   }
 });
