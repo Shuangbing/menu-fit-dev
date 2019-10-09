@@ -19,7 +19,6 @@
           mode="inline"
           :defaultSelectedKeys="['1']"
           :defaultOpenKeys="['sub1']"
-          :selectedKeys="liveMenu"
           @click="menuClick"
           :style="{ height: '100%', borderRight: 0 }"
         >
@@ -45,7 +44,7 @@
         <a-layout-content
           :style="{ background: '#fff', padding: '24px', margin: 0 , minHeight: '90vh'}"
         >
-          <router-view to="/menu"></router-view>
+          <router-view></router-view>
         </a-layout-content>
       </a-layout>
     </a-layout>

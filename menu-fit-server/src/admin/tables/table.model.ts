@@ -5,7 +5,7 @@ export class Table {
     @prop()
     tableNo: string;
     @prop({ ref: User })
-    using: [Ref<User>];
+    user: Ref<User>;
 }
 
 export const TableModel = getModelForClass(Table);
