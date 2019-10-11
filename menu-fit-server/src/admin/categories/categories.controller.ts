@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common'
 import { InjectModel } from 'nestjs-typegoose';
 import { Category } from '../../models/category.model';
 import { IsNotEmpty } from 'class-validator';
-import { ApiModelProperty, ApiOperation } from '@nestjs/swagger';
+import { ApiModelProperty, ApiOperation, ApiUseTags } from '@nestjs/swagger';
 
 class CreateCategoryDto {
     @ApiModelProperty({ description: 'カテゴリーのタイトル', example: 'Category 1' })
@@ -11,6 +11,7 @@ class CreateCategoryDto {
 }
 
 @Controller('admin/categories')
+@ApiUseTags('カテゴリー')
 export class CategoriesController {
     constructor(
         @InjectModel(Category) private readonly categoryModel,

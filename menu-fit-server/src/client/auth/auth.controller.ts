@@ -3,10 +3,12 @@ import { LineService } from './line/line.service';
 import * as express from 'express';
 import { InjectModel } from 'nestjs-typegoose';
 import { User } from '../../models/user.model';
+import { ApiUseTags } from '@nestjs/swagger';
 
 const lineService = new LineService(null);
 
 @Controller('client/auth')
+@ApiUseTags('認証')
 export class AuthController {
     constructor(
         @InjectModel(User) private readonly userModel,
