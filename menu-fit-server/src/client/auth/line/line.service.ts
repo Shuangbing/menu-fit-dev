@@ -1,11 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import unirest = require('unirest');
 import * as jwt from 'jsonwebtoken';
-import { UserModel, User } from '../../../admin/users/user.model';
+import { User } from '../../../models/user.model';
+import { InjectModel } from 'nestjs-typegoose';
 
 @Injectable()
 export class LineService {
-
+    constructor(
+        @InjectModel(User) private readonly userModel,
+    ) {}
+    
     SCOPE = 'openid profile';
     PROMPT = 'consent';
     BOT_PROMPT: 'normal';
@@ -37,7 +41,7 @@ export class LineService {
             if (res.error) { return false; }
             if (res.body.access_token && res.body.id_token) {
                 const userInfo = jwt.decode(res.body.id_token);
-                UserModel.findOne({ openID: userInfo.sub }, (error, doc) => {
+                this.userModel.findOne({ openID: userInfo.sub }, (error, doc) => {
                     if (doc == null) {
                         const user = {
                             openID: userInfo['sub'],
@@ -48,7 +52,7 @@ export class LineService {
                                 picture: userInfo['picture'],
                             },
                         };
-                        UserModel.create(user);
+                        this.userModel.create(user);
                         return true;
                     } else {
                         const { id } = doc;
@@ -58,7 +62,7 @@ export class LineService {
                             name: userInfo['name'],
                             picture: userInfo['picture'],
                         };
-                        UserModel.findByIdAndUpdate(id, { profile: profile });
+                        this.userModel.findByIdAndUpdate(id, { profile: profile });
                         return true;
                     }
                 });

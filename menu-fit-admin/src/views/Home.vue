@@ -118,6 +118,10 @@ export default Vue.extend({
           key: "menu",
           subMenu: [
             {
+              title: "カテゴリー管理",
+              path: "/category"
+            },
+            {
               title: "料理一覧",
               path: "/menu"
             },

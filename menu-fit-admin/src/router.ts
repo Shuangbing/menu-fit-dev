@@ -13,6 +13,9 @@ export default new Router({
       name: 'home',
       component: Home,
       children: [
+        { path: '/category', component: () => import('./components/CategoryView.vue') },
+        { path: '/category/add', component: () => import('./components/CategoryEditView.vue') },
+        { path: '/category/:id', component: () => import('./components/CategoryEditView.vue') },
         { path: '/menu', component: () => import('./components/MenuView.vue') },
         { path: '/menu/add', component: () => import('./components/MenuEditView.vue') },
         { path: '/menu/:id', component: () => import('./components/MenuEditView.vue') },

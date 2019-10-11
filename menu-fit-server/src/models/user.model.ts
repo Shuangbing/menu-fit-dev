@@ -1,4 +1,4 @@
-import { getModelForClass, prop } from '@hasezoey/typegoose';
+import { prop } from '@typegoose/typegoose';
 
 export class User {
     @prop()
@@ -13,5 +13,3 @@ export class User {
     };
     
 }
-
-export const UserModel = getModelForClass(User);

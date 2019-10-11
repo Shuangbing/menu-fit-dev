@@ -44,6 +44,20 @@
       />
     </a-form-item>
 
+    <a-form-item v-bind="formItemLayout" label="カテゴリー">
+      <a-select
+        v-decorator="[
+          'category',
+          {rules: [{ required: true, message: 'カテゴリーを選択してください' }]}
+        ]"
+        placeholder="カテゴリーを選択してください"
+      >
+        <a-select-option v-for="item in categories" v-bind:key="item" :value="item._id">
+          {{item.title}}
+        </a-select-option>
+      </a-select>
+    </a-form-item>
+
     <a-form-item v-bind="formItemLayout" label="詳細情報">
       <a-textarea
         placeholder="詳細情報を入力してください"
@@ -134,10 +148,12 @@ export default {
   mounted() {
     this.id = this.$route.params.id;
     this.fetch();
+    this.getCategories();
   },
   data() {
     return {
-      data: {},
+      data: [],
+      categories: [],
       loading: false,
       formItemLayout: {
         labelCol: { span: 6 },
@@ -154,6 +170,11 @@ export default {
     });
   },
   methods: {
+    async getCategories() {
+      await this.$http.get("/admin/categories").then(res => {
+        this.categories = res.data
+      })
+    },
     async fetch(params = {}) {
       if (this.id) {
         this.loading = true;

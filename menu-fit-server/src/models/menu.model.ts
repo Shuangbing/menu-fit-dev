@@ -1,4 +1,5 @@
-import { getModelForClass, prop } from '@hasezoey/typegoose';
+import { prop, Ref } from '@typegoose/typegoose';
+import { Category } from './category.model';
 
 export class Menu {
     @prop()
@@ -7,6 +8,8 @@ export class Menu {
     price: string;
     @prop()
     summary: string;
+    @prop({ ref: Category })
+    category: Ref<Category>;
     @prop({ default: '' })
     picture: string;
     @prop()
@@ -17,5 +20,3 @@ export class Menu {
         price: string;
     }];
 }
-
-export const MenuModel = getModelForClass(Menu);

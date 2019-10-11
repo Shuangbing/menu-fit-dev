@@ -1,7 +1,7 @@
-import { getModelForClass, prop, Ref } from '@hasezoey/typegoose';
-import { User } from '../users/user.model';
-import { Menu } from '../menus/menu.model';
-import { Table } from '../tables/table.model';
+import { prop, Ref } from '@typegoose/typegoose';
+import { User } from './user.model';
+import { Menu } from './menu.model';
+import { Table } from './table.model';
 
 export class Order {
     @prop({ ref: User })
@@ -21,5 +21,3 @@ export class Order {
         amount: number,
     }];
 }
-
-export const OrderModel = getModelForClass(Order);

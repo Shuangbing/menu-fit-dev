@@ -1,7 +1,9 @@
 import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
 import { ApiUseTags, ApiOperation, ApiModelProperty } from '@nestjs/swagger';
-import { MenuModel } from './menu.model';
 import { IsNotEmpty, IsNotIn } from 'class-validator';
+import { InjectModel } from 'nestjs-typegoose';
+import { Menu } from '../../models/menu.model';
+import { Category } from '../../models/category.model';
 
 class CreateMenuDto {
     @ApiModelProperty({ description: 'メニューのタイトル', example: 'Food 1' })
@@ -26,16 +28,21 @@ class MenuOption {
 @Controller('admin/menus')
 @ApiUseTags('メニュー')
 export class MenusController {
+    constructor(
+        @InjectModel(Menu) private readonly menuModel,
+        @InjectModel(Category) private readonly categoryModel,
+    ) {}
+
     @Get()
     @ApiOperation({ title: 'メニューリストを表示する' })
     async index() {
-        return await MenuModel.find();
+        return await this.menuModel.find();
     }
 
     @Post()
     @ApiOperation({ title: 'メニューを追加する' })
     async create(@Body() createMenuDto: CreateMenuDto) {
-        await MenuModel.create(createMenuDto);
+        await this.menuModel.create(createMenuDto);
         return {
             success: true,
         };
@@ -44,13 +51,13 @@ export class MenusController {
     @Get(':id')
     @ApiOperation({ title: '指定のメニューの情報を表示する' })
     async detail(@Param('id') id: string) {
-        return await MenuModel.findById(id);
+        return await this.menuModel.findById(id);
     }
 
     @Put(':id')
     @ApiOperation({ title: '指定のメニューの情報を更新する' })
     async update(@Param('id') id: string, @Body() updateMenuDto: CreateMenuDto) {
-        await MenuModel.findByIdAndUpdate(id, updateMenuDto);
+        await this.menuModel.findByIdAndUpdate(id, updateMenuDto);
         return {
             success: true,
         };

@@ -1,12 +1,17 @@
 import { Controller, Get, Response, Param, Query, Global } from '@nestjs/common';
 import { LineService } from './line/line.service';
 import * as express from 'express';
+import { InjectModel } from 'nestjs-typegoose';
+import { User } from '../../models/user.model';
 
-const lineService = new LineService();
+const lineService = new LineService(null);
 
 @Controller('client/auth')
 export class AuthController {
-
+    constructor(
+        @InjectModel(User) private readonly userModel,
+    ) {}
+    
     @Get('login')
     Login(@Response() response: express.Response) {
         return response.redirect(lineService.login());

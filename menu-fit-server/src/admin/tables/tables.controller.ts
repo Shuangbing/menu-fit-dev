@@ -1,7 +1,8 @@
 import { Controller, Get, Post, Put, Body, Param, Delete } from '@nestjs/common';
 import { ApiUseTags, ApiOperation, ApiModelProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsNotIn } from 'class-validator';
-import { TableModel } from './table.model';
+import { Table } from '../../models/table.model';
+import { InjectModel } from 'nestjs-typegoose';
 
 class CreateTableDto {
     @ApiModelProperty({ description: 'テーブルの番号', example: 'A-1' })
@@ -12,16 +13,20 @@ class CreateTableDto {
 @Controller('admin/tables')
 @ApiUseTags('テーブル')
 export class TablesController {
+    constructor(
+        @InjectModel(Table) private readonly tableModel,
+    ) {}
+
     @Get()
     @ApiOperation({ title: 'テーブルリストを表示する' })
     async index() {
-        return await TableModel.find();
+        return await this.tableModel.find();
     }
 
     @Post()
     @ApiOperation({ title: 'テーブルを追加する' })
     async create(@Body() createTableDto: CreateTableDto) {
-        await TableModel.create(createTableDto);
+        await this.tableModel.create(createTableDto);
         return {
             success: true,
         };
@@ -30,13 +35,13 @@ export class TablesController {
     @Get(':id')
     @ApiOperation({ title: 'テーブルの情報を表示する' })
     async detail(@Param('id') id: string) {
-        return await TableModel.findById(id);
+        return await this.tableModel.findById(id);
     }
 
     @Put(':id')
     @ApiOperation({ title: '指定のテーブルの情報を更新する' })
     async update(@Param('id') id: string, @Body() updateTableDto: CreateTableDto) {
-        await TableModel.findByIdAndUpdate(id, updateTableDto);
+        await this.tableModel.findByIdAndUpdate(id, updateTableDto);
         return {
             success: true,
         };
@@ -45,7 +50,7 @@ export class TablesController {
     @Delete(':id')
     @ApiOperation({ title: '指定のテーブルの情報を削除する' })
     async delete(@Param('id') id: string) {
-        await TableModel.findByIdAndDelete(id);
+        await this.tableModel.findByIdAndDelete(id);
         return {
             success: true,
         };

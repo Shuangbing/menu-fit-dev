@@ -1,9 +1,10 @@
 <template>
   <div>
+    <md-dialog title="タイトル" :closable="true" v-model="basicDialog.open" :btns="basicDialog.btns">内容</md-dialog>
     <div class="header">
       <div class="title">
-        <p>Demoレストラン</p>
-        <md-tag size="large" shape="circle" type="ghost" font-color="#FC7353">A-1</md-tag>
+        <p>{{this.data.restrant_name}}</p>
+        <md-tag size="large" shape="circle" type="ghost" font-color="#FC7353">{{this.data.table_no}}</md-tag>
       </div>
       <img
         class="title"
@@ -12,30 +13,38 @@
         src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRxiYsRILC5q59QRcTvXn9tAEDi3VCuXFtc1TLOQh5p-10gBm0J"
       />
     </div>
-    <md-tab-bar v-model="current" :items="items" :maxLength="5" />
+    <md-tab-bar v-model="current" :items="data.categories" :maxLength="5" />
     <div class="md-example-child md-example-child-cell-item md-example-child-cell-item-2">
       <md-scroll-view :scrolling-x="false" style="bottom: 90%;" :bouncing="false">
         <md-field>
-          <md-cell-item v-for="item in 10" v-bind:key="item" title="ラーメン" no-border>
+          <md-cell-item v-for="item in data.menu" v-bind:key="item" :title="item.title" no-border>
             <img
               class="holder"
               slot="left"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRxiYsRILC5q59QRcTvXn9tAEDi3VCuXFtc1TLOQh5p-10gBm0J"
+              :src="'http://localhost:3000/web/uploads/'+item.picture"
             />
-            <p style="font-size: 0.7rem; margin-top: 5px;">￥100</p>
-            <md-stepper slot="right" v-model="value" min="0" max="5" />
+            <p style="font-size: 0.7rem; margin-top: 5px;">￥{{item.price}}</p>
+            <a v-on:click="basicDialog.open = true">
+              <md-tag
+                size="small"
+                type="ghost"
+                style="font-size: 0.7rem; margin-top: 5px;"
+                font-color="#FC7353"
+              >アレルギー</md-tag>
+            </a>
+            <md-stepper slot="right" min="0" max="5" />
           </md-cell-item>
         </md-field>
       </md-scroll-view>
       <!-- <div class="footer">
         <md-button type="primary" round>Primary & Round</md-button>
-      </div> -->
+      </div>-->
     </div>
   </div>
 </template>
 
 <script>
-import { Field, CellItem, Switch } from "mand-mobile";
+import { Field, CellItem, Switch, Tag } from "mand-mobile";
 
 export default {
   name: "cell-item-demo",
@@ -44,17 +53,39 @@ export default {
     [CellItem.name]: CellItem,
     [Switch.name]: Switch
   },
+  mounted() {
+    this.id = '5d9d5047a865e11aa93a3df1';
+    this.fetch();
+  },
+  methods: {
+    async fetch() {
+      var defaultCategories = {name: '0', label: 'すべて'};
+      this.loading = true;
+      await this.$http.get("/client/order/" + this.id).then(res => {
+        this.data = res.data;
+        this.data.categories.unshift(defaultCategories);
+      });
+    }
+  },
   data() {
     return {
+      id: '',
+      current: '0',
       open: false,
-      current: 1,
-      items: [
-        { name: 1, label: "すべて" },
-        { name: 2, label: "主食" },
-        { name: 3, label: "ドリンク" },
-        { name: 4, label: "デザート" },
-        { name: 5, label: "新品" }
-      ]
+      data: [],
+      basicDialog: {
+        open: false,
+        btns: [
+          {
+            text: "いいえ",
+            handler: this.onBasicCancel
+          },
+          {
+            text: "はい",
+            handler: this.onBasicConfirm
+          }
+        ]
+      }
     };
   }
 };
@@ -85,7 +116,7 @@ export default {
   display: block;
   width: 100px;
   height: 100px;
-  border-radius: 20px;
+  border-radius: 10px;
   background-color: #E6E6E6;
 }
 
