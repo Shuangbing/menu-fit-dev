@@ -22,7 +22,7 @@
           width="250"
           height="250"
           v-if="this.data.picture"
-          :src="this.$http.defaults.baseURL +'/web/uploads/'+ this.data.picture"
+          :src="this.data.picture"
           alt="avatar"
         />
         <div v-else>
@@ -215,7 +215,7 @@ export default {
         return;
       }
       if (info.file.status === "done") {
-        this.data.picture = info.file.response.filename;
+        this.data.picture = info.file.response.location;
         this.form.setFieldsValue({picture: this.data.picture});
         this.loading = false;
       }

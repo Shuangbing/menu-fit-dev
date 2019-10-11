@@ -13,7 +13,7 @@ export default new Router({
       name: 'home',
       component: Home,
       children: [
-        { path: '/order', component: () => import('./components/OrderView.vue') },
+        { path: '/order/:id', component: () => import('./components/OrderView.vue') },
       ]
     },
 

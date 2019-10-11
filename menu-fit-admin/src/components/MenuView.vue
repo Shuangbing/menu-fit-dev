@@ -8,7 +8,7 @@
   >
     <template slot="name" slot-scope="name">{{name.first}} {{name.last}}</template>
     <template slot="picture" slot-scope="picture">
-      <a-avatar shape="square" :size="100" icon="question" :src="'http://localhost:3000/web/uploads/'+picture" />
+      <a-avatar shape="square" :size="100" icon="question" :src="picture" />
     </template>
     <template slot="action" slot-scope="data">
       <a-button

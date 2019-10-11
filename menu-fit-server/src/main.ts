@@ -4,10 +4,9 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import * as serveStatic from 'serve-static';
 import { join } from 'path';
-
+import * as dotenv from 'dotenv';
 async function bootstrap() {
-  require('dotenv').config();
-
+  dotenv.config();
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe({ disableErrorMessages: true, transform: true }));
 

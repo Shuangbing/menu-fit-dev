@@ -13,15 +13,15 @@
         src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRxiYsRILC5q59QRcTvXn9tAEDi3VCuXFtc1TLOQh5p-10gBm0J"
       />
     </div>
-    <md-tab-bar v-model="current" :items="data.categories" :maxLength="5" />
+    <md-tab-bar v-model="current" :items="data.categories" :maxLength="10" />
     <div class="md-example-child md-example-child-cell-item md-example-child-cell-item-2">
       <md-scroll-view :scrolling-x="false" style="bottom: 90%;" :bouncing="false">
         <md-field>
-          <md-cell-item v-for="item in data.menu" v-bind:key="item" :title="item.title" no-border>
+          <md-cell-item v-for="item in data.menu" v-bind:key="item._id" :title="item.title" no-border>
             <img
               class="holder"
               slot="left"
-              :src="'http://localhost:3000/web/uploads/'+item.picture"
+              :src="item.picture"
             />
             <p style="font-size: 0.7rem; margin-top: 5px;">￥{{item.price}}</p>
             <a v-on:click="basicDialog.open = true">
@@ -54,7 +54,7 @@ export default {
     [Switch.name]: Switch
   },
   mounted() {
-    this.id = '5d9d5047a865e11aa93a3df1';
+    this.id = this.$route.params.id;
     this.fetch();
   },
   methods: {
