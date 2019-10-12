@@ -1,31 +1,27 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from 'nestjs-typegoose';
+import { User } from '../../models/user.model';
+import { ReturnModelType } from '@typegoose/typegoose';
 import unirest = require('unirest');
 import * as jwt from 'jsonwebtoken';
-import { User } from '../../../models/user.model';
-import { InjectModel } from 'nestjs-typegoose';
 
 @Injectable()
-export class LineService {
-    constructor(
-        @InjectModel(User) private readonly userModel,
-    ) {}
-    
+export class AuthService {
+    constructor(@InjectModel(User) private readonly userModel: ReturnModelType<typeof User>) {}
     SCOPE = 'openid profile';
     PROMPT = 'consent';
     BOT_PROMPT: 'normal';
 
-    // tslint:disable-next-line: variable-name
-    login(table_id) {
+    auth(table: string) {
         return 'https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id='
             + process.env.LINE_CHANNEL_ID
-            + '&redirect_uri=' + encodeURIComponent(process.env.LINE_CALLBACK_URL)
-            + 'tableID=' + table_id
+            + '&redirect_uri=' + encodeURIComponent(process.env.LINE_CALLBACK_URL + '?tableID=' + table)
             + '&state=stateTest&scope=openid%20profile&nonce=nonceTest';
     }
 
-    getAcccessToken(code: string, state: string) {
+    getAcccessToken(code: string, state: string, table: string) {
         const req = unirest('POST', 'https://api.line.me/oauth2/v2.1/token');
-
+        
         req.headers({
             'Content-Type': 'application/x-www-form-urlencoded',
         });
@@ -33,7 +29,7 @@ export class LineService {
         req.form({
             grant_type: 'authorization_code',
             code: code,
-            redirect_uri: process.env.LINE_CALLBACK_URL,
+            redirect_uri: process.env.LINE_CALLBACK_URL + '?tableID=' + table,
             client_id: process.env.LINE_CHANNEL_ID,
             client_secret: process.env.LINE_CHANNEL_SECRET,
         });
