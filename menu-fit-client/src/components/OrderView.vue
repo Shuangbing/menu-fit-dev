@@ -17,12 +17,13 @@
     <div class="md-example-child md-example-child-cell-item md-example-child-cell-item-2">
       <md-scroll-view :scrolling-x="false" style="bottom: 90%;" :bouncing="false">
         <md-field>
-          <md-cell-item v-for="item in data.menu" v-bind:key="item._id" :title="item.title" no-border>
-            <img
-              class="holder"
-              slot="left"
-              :src="item.picture"
-            />
+          <md-cell-item
+            v-for="item in data.menu"
+            v-bind:key="item._id"
+            :title="item.title"
+            no-border
+          >
+            <img class="holder" slot="left" :src="item.picture" />
             <p style="font-size: 0.7rem; margin-top: 5px;">￥{{item.price}}</p>
             <a v-on:click="basicDialog.open = true">
               <md-tag
@@ -44,7 +45,7 @@
 </template>
 
 <script>
-import { Field, CellItem, Switch, Tag } from "mand-mobile";
+import { Field, CellItem, Switch, Tag, Dialog } from "mand-mobile";
 
 export default {
   name: "cell-item-demo",
@@ -59,18 +60,29 @@ export default {
   },
   methods: {
     async fetch() {
-      var defaultCategories = {name: '0', label: 'すべて'};
+      var defaultCategories = { name: "0", label: "すべて" };
       this.loading = true;
-      await this.$http.get("/client/order/" + this.id).then(res => {
-        this.data = res.data;
-        this.data.categories.unshift(defaultCategories);
-      });
+      await this.$http
+        .get("/client/order/" + this.id)
+        .then(res => {
+          this.data = res.data;
+          this.data.categories.unshift(defaultCategories);
+        })
+        .catch(error => {
+          if (error.response.data.message) {
+            Dialog.alert({
+              title: "エラー",
+              content: error.response.data.message,
+              confirmText: 'はい',
+            });
+          }
+        });
     }
   },
   data() {
     return {
-      id: '',
-      current: '0',
+      id: "",
+      current: "0",
       open: false,
       data: [],
       basicDialog: {

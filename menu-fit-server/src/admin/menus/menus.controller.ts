@@ -36,7 +36,7 @@ export class MenusController {
     @Get()
     @ApiOperation({ title: 'メニューリストを表示する' })
     async index() {
-        return await this.menuModel.find();
+        return await this.menuModel.find().populate('category');
     }
 
     @Post()

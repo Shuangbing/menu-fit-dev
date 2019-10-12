@@ -77,10 +77,6 @@ export default Vue.extend({
           key: "user",
           subMenu: [
             {
-              title: "来店中の顧客",
-              path: "/user/inshop"
-            },
-            {
               title: "顧客一覧",
               path: "/user"
             }
@@ -105,10 +101,6 @@ export default Vue.extend({
             {
               title: "テーブル一覧",
               path: "/table"
-            },
-            {
-              title: "テーブル新規追加",
-              path: "/table/add"
             }
           ]
         },
@@ -118,16 +110,12 @@ export default Vue.extend({
           key: "menu",
           subMenu: [
             {
-              title: "カテゴリー管理",
+              title: "カテゴリー",
               path: "/category"
             },
             {
-              title: "料理一覧",
+              title: "メニュー",
               path: "/menu"
-            },
-            {
-              title: "料理新規追加",
-              path: "/menu/add"
             }
           ]
         }

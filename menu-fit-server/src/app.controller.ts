@@ -1,9 +1,11 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param, Redirect } from '@nestjs/common';
 
 @Controller()
 export class AppController {
-  @Get()
-  index(): string {
-    return 'index';
+
+  @Get('go/:id')
+  @Redirect('/client/order/', 301)
+  FastOrder(@Param('id') id: string) {
+    return { url: '/client/#/order/' + id };
   }
 }

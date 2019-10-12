@@ -28,12 +28,12 @@ const columns = [
   {
     title: "カテゴリー",
     dataIndex: "title",
-    width: "20%"
   },
   {
     title: "操作",
     dataIndex: "",
     key: "x",
+    width: "20%",
     scopedSlots: { customRender: "action" }
   }
 ];

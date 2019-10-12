@@ -16,7 +16,7 @@ export class AuthController {
     
     @Get('login')
     Login(@Response() response: express.Response) {
-        return response.redirect(lineService.login());
+        return response.redirect(lineService.login(null));
     }
 
     @Get('test1')

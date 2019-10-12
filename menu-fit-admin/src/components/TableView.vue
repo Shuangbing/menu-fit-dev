@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div style="text-align: right; margin-bottom: 10px;">
+      <a-button type="primary" @click="$router.push('/table/add')">新規追加</a-button>
+    </div>
     <a-row :gutter="24" type="flex">
       <a-col :span="6" :order="1" v-for="item in this.data" :key="item">
         <a-card :title="item.tableNo" hoverable style="margin-bottom: 1.5rem">
