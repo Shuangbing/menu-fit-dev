@@ -15,7 +15,7 @@ export class AuthService {
     auth(table: string) {
         return 'https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id='
             + process.env.LINE_CHANNEL_ID
-            + '&redirect_uri=' + encodeURIComponent(process.env.LINE_CALLBACK_URL + '?tableID=' + table)
+            + '&redirect_uri=' + encodeURIComponent(process.env.LINE_CALLBACK_URL + '?table=' + table)
             + '&state=stateTest&scope=openid%20profile&nonce=nonceTest';
     }
 
@@ -29,7 +29,7 @@ export class AuthService {
         req.form({
             grant_type: 'authorization_code',
             code: code,
-            redirect_uri: process.env.LINE_CALLBACK_URL + '?tableID=' + table,
+            redirect_uri: process.env.LINE_CALLBACK_URL + '?table=' + table,
             client_id: process.env.LINE_CHANNEL_ID,
             client_secret: process.env.LINE_CHANNEL_SECRET,
         });

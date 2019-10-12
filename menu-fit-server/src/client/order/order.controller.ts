@@ -26,8 +26,8 @@ export class OrderController {
         if (!mongoose.Types.ObjectId.isValid(id)) { throw new HttpException('正しいIDを指定してください', 401); }
         const table = await this.tableModel.findById(id);
         if (!table) { throw new HttpException('テーブルが見つかりませんでした', 403); }
-        const user = await this.userModel.findById('5d99f5ac7b4562548795fd62');
-        if (!user) { throw new HttpException('ログインしてください', 403); }
+        //const user = await this.userModel.findById('5d99f5ac7b4562548795fd62');
+        //if (!user) { throw new HttpException('ログインしてください', 403); }
         const menu = await this.menuModel.find();
         if (!menu) { throw new HttpException('メニューがありません', 403); }
         const category = await this.categoryModel.aggregate().project({name : '$_id', label: '$title'}).exec();

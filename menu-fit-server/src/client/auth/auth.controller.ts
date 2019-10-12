@@ -11,23 +11,28 @@ export class AuthController {
     constructor(
         @InjectModel(User) private readonly userModel,
         private readonly authService: AuthService,
-    ) {}
-    
+    ) { }
+
     @Get('login')
-    Login(@Response() response: express.Response) {
-        return response.redirect(this.authService.auth(null));
+    Login(@Query('table') table: string, @Response() response: express.Response) {
+        if (table !== undefined) {
+            return response.redirect(this.authService.auth(table));
+        } else {
+            return response.redirect(this.authService.auth(null));
+        }
     }
 
     @Get('callback')
     CallBack(
+        @Response() response: express.Response,
         @Query('code') code: string,
         @Query('state') state: string,
+        @Query('table') table: string,
         @Query('access_token') accessToken: string) {
 
-        if (code !== undefined && state !== undefined) {
-            this.authService.getAcccessToken(code, state, null);
-            
-            return 'to Get AccessToken';
+        if (code !== undefined && state !== undefined && table !== undefined) {
+            this.authService.getAcccessToken(code, state, table);
+            return response.redirect('/go/' + table);
         } else if (accessToken !== undefined) {
             return 'to Get Profile Information';
         }
