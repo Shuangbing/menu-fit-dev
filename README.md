@@ -2,9 +2,9 @@
 
 ## Usage
 ### cd menu-fit-admin
-### yarn build
+### yarn build / npm run build
 ### cd menu-fit-client
-### yarn build
+### yarn build / npm run build
 ### cd menu-fit-server
-### nest start
+### nest build
 
