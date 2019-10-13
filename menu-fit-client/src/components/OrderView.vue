@@ -10,15 +10,15 @@
         class="title"
         width="100"
         height="100"
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRxiYsRILC5q59QRcTvXn9tAEDi3VCuXFtc1TLOQh5p-10gBm0J"
+        src="../../src/assets/logo.jpg"
       />
     </div>
-    <md-tab-bar v-model="current" :items="data.categories" :maxLength="10" />
+    <md-tab-bar v-model="current" :items="data.categories" @change="category_filter" :maxLength="10" />
     <div class="md-example-child md-example-child-cell-item md-example-child-cell-item-2">
       <md-scroll-view :scrolling-x="false" style="bottom: 90%;" :bouncing="false">
         <md-field>
           <md-cell-item
-            v-for="item in data.menu"
+            v-for="item in menu_categories"
             v-bind:key="item._id"
             :title="item.title"
             no-border
@@ -59,6 +59,18 @@ export default {
     this.fetch();
   },
   methods: {
+    async category_filter(item, index, prevIndex) {
+      this.menu_categories = []
+      if(item.name == 0) {
+        this.menu_categories = this.data.menu;
+        return;
+      }
+      this.data.menu.forEach(element => {
+        if (element.category == item.name){
+          this.menu_categories.push(element);
+        }
+      });
+    },
     async fetch() {
       var defaultCategories = { name: "0", label: "すべて" };
       this.loading = true;
@@ -66,6 +78,7 @@ export default {
         .get("/client/order/" + this.id)
         .then(res => {
           this.data = res.data;
+          this.menu_categories = this.data.menu;
           this.data.categories.unshift(defaultCategories);
         })
         .catch(error => {
@@ -85,6 +98,7 @@ export default {
       current: "0",
       open: false,
       data: [],
+      menu_categories: [],
       basicDialog: {
         open: false,
         btns: [
