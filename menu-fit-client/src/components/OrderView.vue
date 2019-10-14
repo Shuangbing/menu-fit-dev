@@ -1,7 +1,14 @@
 <template>
   <div>
     <div style="padding: 0 1rem;">
-    <md-button style="position: absolute; z-index: 999; width: 90%; bottom: 5%;" type="primary" v-on:click="isCartShow = true" round>合計金額 ¥{{totalPrice()}}</md-button>
+      <md-button
+        style="position: absolute; z-index: 999; width: 90%; bottom: 5%;"
+        type="primary"
+        v-on:click="isCartShow = true"
+        round
+      >合計金額¥ 
+      <md-amount :value="totalPrice()" precision="0" has-separator></md-amount>
+      </md-button>
     </div>
     <md-popup v-model="isCartShow" position="bottom">
       <md-popup-title-bar
@@ -15,13 +22,15 @@
         <div style="padding: 1rem 1rem">
           <md-field>
             <div v-for="item of data.menu" v-bind:key="item._id">
-            <md-cell-item v-if="item.cart > 0" :title="item.title">
-              <span>¥{{item.price}}</span>
-              <span slot="right">x {{item.cart}}</span>
-            </md-cell-item>
+              <md-cell-item v-if="item.cart > 0" :title="item.title">
+                <span>¥{{item.price}}</span>
+                <span slot="right">x {{item.cart}}</span>
+              </md-cell-item>
             </div>
           </md-field>
-          <md-button type="primary" round>合計金額 ¥{{totalPrice()}}</md-button>
+          <md-button type="primary" round>
+            <md-amount :value="totalPrice()" precision="0" has-separator></md-amount>
+          </md-button>
         </div>
       </div>
     </md-popup>
@@ -40,7 +49,7 @@
       :maxLength="10"
     />
     <div class="md-example-child md-example-child-cell-item md-example-child-cell-item-2">
-      <md-scroll-view :scrolling-x="false" style="bottom: 90%; height: 100vh;" ref="scrollView">
+      <md-scroll-view :scrolling-x="false" style="bottom: 0; height: auto;" ref="scrollView">
         <md-field>
           <md-cell-item
             v-for="item in menu_categories"
@@ -58,13 +67,7 @@
                 font-color="#FC7353"
               >アレルギー</md-tag>
             </a>
-            <md-stepper
-              v-model="item.cart"
-              slot="right"
-              min="0"
-              max="5"
-              read-only
-            />
+            <md-stepper v-model="item.cart" slot="right" min="0" max="5" read-only />
           </md-cell-item>
         </md-field>
       </md-scroll-view>
@@ -91,7 +94,7 @@ export default {
       var total = 0;
       this.data.menu.forEach(element => {
         if (element.cart > 0) {
-          total = total + ( element.cart * element.price);
+          total = total + element.cart * element.price;
         }
       });
       return total;
