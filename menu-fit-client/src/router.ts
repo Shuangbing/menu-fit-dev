@@ -13,6 +13,7 @@ const router = new Router({
       name: 'home',
       component: Home,
       children: [
+        { path: '/order/detail', component: () => import('./components/OrderDetailView.vue') },
         { path: '/order/:id', component: () => import('./components/OrderView.vue') },
       ]
     },

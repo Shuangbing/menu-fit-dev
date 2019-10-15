@@ -1,21 +1,23 @@
 <template>
   <div>
-    <div style="padding: 0 1rem;">
-      <md-button
-        style="position: absolute; z-index: 999; width: 90%; bottom: 5%;"
-        type="primary"
-        v-on:click="isCartShow = true"
-        round
-      >合計金額¥ 
-      <md-amount :value="totalPrice()" precision="0" has-separator></md-amount>
-      </md-button>
-    </div>
+    <md-button
+      style="position: absolute; z-index: 1000;  bottom: 5%; right: 5%; width: 15rem;"
+      type="primary"
+      v-on:click="isCartShow = true"
+      round
+    >
+      合計金額
+      <p style="margin: 0 3px; font-size: 1.5rem;">¥</p>
+      <md-amount :value="totalPrice()" :precision="0" has-separator></md-amount>
+    </md-button>
     <md-popup v-model="isCartShow" position="bottom">
       <md-popup-title-bar
         title="カート"
         describe="注文を確認してください"
         ok-text="次へ"
         cancel-text="閉じる"
+        @confirm="$router.push('detail')"
+        @cancel="isCartShow = false"
         large-radius
       ></md-popup-title-bar>
       <div class="popup_cart">
@@ -29,7 +31,9 @@
             </div>
           </md-field>
           <md-button type="primary" round>
-            <md-amount :value="totalPrice()" precision="0" has-separator></md-amount>
+            合計金額
+            <p style="margin: 0 3px; font-size: 1.5rem;">¥</p>
+            <md-amount :value="totalPrice()" :precision="0" has-separator></md-amount>
           </md-button>
         </div>
       </div>
@@ -40,7 +44,7 @@
         <p>{{this.data.restrant_name}}</p>
         <md-tag size="large" shape="circle" type="ghost" font-color="#FC7353">{{this.data.table_no}}</md-tag>
       </div>
-      <img class="title" width="100" height="100" src="../../src/assets/logo.jpg" />
+      <img class="title" width="100" height="100" src="../../src/assets/images/logo.jpg" />
     </div>
     <md-tab-bar
       v-model="current"
@@ -48,28 +52,31 @@
       @change="category_filter"
       :maxLength="10"
     />
-    <div class="md-example-child md-example-child-cell-item md-example-child-cell-item-2">
-      <md-scroll-view :scrolling-x="false" style="bottom: 0; height: auto;" ref="scrollView">
-        <md-field>
-          <md-cell-item
-            v-for="item in menu_categories"
-            v-bind:key="item._id"
-            :title="item.title"
-            no-border
-          >
-            <img class="holder" slot="left" :src="item.picture" />
-            <p style="font-size: 0.7rem; margin-top: 5px;">￥{{item.price}}</p>
-            <a>
-              <md-tag
-                size="small"
-                type="ghost"
-                style="font-size: 0.7rem; margin-top: 5px;"
-                font-color="#FC7353"
-              >アレルギー</md-tag>
-            </a>
-            <md-stepper v-model="item.cart" slot="right" min="0" max="5" read-only />
-          </md-cell-item>
-        </md-field>
+    <div style="position: relative; overflow: hidden; height: 75%;">
+      <md-scroll-view
+        :scrolling-x="false"
+        style="bottom: 0; height: 100vh; padding: 0 1.5rem;"
+        :auto-reflow="true"
+      >
+        <md-cell-item
+          style="border-bottom .5px solid #efefef"
+          v-for="item in menu_categories"
+          v-bind:key="item._id"
+          :title="item.title"
+          no-border
+        >
+          <img class="holder" slot="left" :src="item.picture" />
+          <p style="font-size: 0.7rem; margin-top: 5px;">￥{{item.price}}</p>
+          <a>
+            <md-tag
+              size="small"
+              type="ghost"
+              style="font-size: 0.7rem; margin-top: 5px;"
+              font-color="#FC7353"
+            >アレルギー</md-tag>
+          </a>
+          <md-stepper v-model="item.cart" slot="right" min="0" max="5" read-only />
+        </md-cell-item>
       </md-scroll-view>
     </div>
   </div>
@@ -92,12 +99,14 @@ export default {
   methods: {
     totalPrice() {
       var total = 0;
-      this.data.menu.forEach(element => {
-        if (element.cart > 0) {
-          total = total + element.cart * element.price;
-        }
-      });
-      return total;
+      if (this.data.menu) {
+        this.data.menu.forEach(element => {
+          if (element.cart > 0) {
+            total = total + element.cart * element.price;
+          }
+        });
+        return total;
+      }
     },
     async category_filter(item, index, prevIndex) {
       this.menu_categories = [];
@@ -105,11 +114,13 @@ export default {
         this.menu_categories = this.data.menu;
         return;
       }
-      this.data.menu.forEach(element => {
-        if (element.category == item.name) {
-          this.menu_categories.push(element);
-        }
-      });
+      if (this.data.menu) {
+        this.data.menu.forEach(element => {
+          if (element.category == item.name) {
+            this.menu_categories.push(element);
+          }
+        });
+      }
     },
     async fetch() {
       var defaultCategories = { name: "0", label: "すべて" };
@@ -189,6 +200,7 @@ export default {
 }
 
 .header {
+  height: 20%;
   display: flex;
   display: -webkit-flex;
   justify-content: space-between;
@@ -198,7 +210,7 @@ export default {
 
 .title {
   margin: 1rem 1rem 1rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   border-radius: 1rem;
 }
 
