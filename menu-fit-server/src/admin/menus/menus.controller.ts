@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
 import { ApiUseTags, ApiOperation, ApiModelProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNotIn } from 'class-validator';
+import { IsNotEmpty } from 'class-validator';
 import { InjectModel } from 'nestjs-typegoose';
 import { Menu } from '../../models/menu.model';
 import { Category } from '../../models/category.model';

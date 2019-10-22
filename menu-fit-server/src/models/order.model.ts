@@ -17,7 +17,6 @@ export class Order {
     @prop()
     detail: [{
         menu: Ref<Menu>,
-        price: number,
         amount: number,
     }];
 }

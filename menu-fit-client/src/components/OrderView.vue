@@ -16,7 +16,7 @@
         describe="注文を確認してください"
         ok-text="次へ"
         cancel-text="閉じる"
-        @confirm="$router.push('detail')"
+        @confirm="confirmOrder"
         @cancel="isCartShow = false"
         large-radius
       ></md-popup-title-bar>
@@ -107,6 +107,25 @@ export default {
         });
         return total;
       }
+    },
+    async confirmOrder() {
+      var order = [];
+      this.data.menu.forEach(element => {
+        if (element.cart > 0) {
+          order.push({
+            menu: element._id,
+            amount: element.cart
+          });
+        }
+      });
+
+      await this.$http
+        .post("/client/order/" + this.id, { detail: order })
+        .then(res => {
+          console.log(res);
+        });
+      //console.log(order)
+      //$router.push('detail');
     },
     async category_filter(item, index, prevIndex) {
       this.menu_categories = [];
