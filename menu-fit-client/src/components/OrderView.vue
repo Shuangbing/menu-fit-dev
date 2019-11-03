@@ -152,13 +152,10 @@ export default {
           this.data.categories.unshift(defaultCategories);
         })
         .catch(error => {
-          if (error.response.data.message) {
-            Dialog.alert({
-              title: "エラー",
-              content: error.response.data.message,
-              confirmText: "はい"
-            });
+          if (error.response.status === 401) {
+            this.$router.push("/auth/login?table=" + this.id);
           }
+          
         });
     }
   },

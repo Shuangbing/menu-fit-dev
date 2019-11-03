@@ -5,8 +5,7 @@ import Home from './views/Home.vue'
 Vue.use(Router)
 
 const router = new Router({
-  mode: 'hash',
-  base: process.env.BASE_URL,
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -21,7 +20,11 @@ const router = new Router({
     {
       path: '/auth',
       name: 'auth',
-      component: () => import(/* webpackChunkName: "about" */ './views/Auth.vue')
+      component: Home,
+      children: [
+        { path: '/auth/login', component: () => import('./components/Auth/Login.vue') },
+        { path: '/auth/callback', component: () => import('./components/Auth/CallBack.vue') },
+      ]
     }
   ]
 })

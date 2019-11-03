@@ -6,9 +6,13 @@ import { Table } from '../../models/table.model';
 import { Menu } from '../../models/menu.model';
 import { Category } from '../../models/category.model';
 import { Order } from '../../models/order.model';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   controllers: [OrderController],
-  imports: [TypegooseModule.forFeature([User, Table, Menu, Category, Order])],
+  imports: [
+    TypegooseModule.forFeature([User, Table, Menu, Category, Order]),
+    PassportModule.register({ defaultStrategy: 'jwt' }),
+  ],
 })
 export class OrderModule {}

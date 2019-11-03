@@ -1,4 +1,4 @@
-import { Controller, Get, Response, Param, Query, Global } from '@nestjs/common';
+import { Controller, Get, Response, Param, Query, HttpException } from '@nestjs/common';
 import * as express from 'express';
 import { InjectModel } from 'nestjs-typegoose';
 import { User } from '../../models/user.model';
@@ -14,27 +14,29 @@ export class AuthController {
     ) { }
 
     @Get('login')
-    Login(@Query('table') table: string, @Response() response: express.Response) {
+    async Login(@Query('table') table: string) {
         if (table !== undefined) {
-            return response.redirect(this.authService.auth(table));
+            return await this.authService.auth(table);
         } else {
-            return response.redirect(this.authService.auth(null));
+            return await this.authService.auth(null);
         }
     }
 
     @Get('callback')
-    CallBack(
-        @Response() response: express.Response,
+    async CallBack(
         @Query('code') code: string,
         @Query('state') state: string,
-        @Query('table') table: string,
-        @Query('access_token') accessToken: string) {
+        @Query('table') table: string) {
 
         if (code !== undefined && state !== undefined && table !== undefined) {
-            this.authService.getAcccessToken(code, state, table);
-            return response.redirect('/go/' + table);
-        } else if (accessToken !== undefined) {
-            return 'to Get Profile Information';
+            const userToken = await this.authService.getAcccessToken(code, state, table);
+            if (userToken) {
+                return {
+                    access_token: userToken,
+                };
+            }
+        } else {
+            throw new HttpException('ログインできませんでした', 403);
         }
 
         return false;

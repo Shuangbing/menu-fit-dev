@@ -2,12 +2,8 @@
   <div class="main">
     <md-steps :steps="steps"></md-steps>
     <div class="button">
-      <md-button class="md-button-line" @click="$router.push('/client/auth/login')" type="default">
-      LINEでログイン
-      </md-button>
-      <md-button class="md-button-alipay" type="default">
-      Alipayでログイン
-      </md-button>
+      <md-button class="md-button-line" @click="LoginLine" type="default">LINEでログイン</md-button>
+      <md-button class="md-button-alipay" type="default">Alipayでログイン</md-button>
     </div>
   </div>
 </template>
@@ -57,6 +53,14 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    async LoginLine() {
+      await this.$http.get("/client/auth/login?table=" + this.$route.query.table)
+      .then(res => {
+        window.location = res.data
+      })
+    }
   }
 };
 </script>

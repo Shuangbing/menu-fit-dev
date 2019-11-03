@@ -1,4 +1,4 @@
-import { Controller, Get, Param, HttpException, HttpStatus, Post, Body } from '@nestjs/common';
+import { Controller, Get, Param, HttpException, UseGuards, Post, Body } from '@nestjs/common';
 import { IsNotEmpty, IsNotIn } from 'class-validator';
 import { ApiUseTags, ApiOperation, ApiModelProperty } from '@nestjs/swagger';
 import { InjectModel } from 'nestjs-typegoose';
@@ -8,6 +8,7 @@ import { Menu } from '../../models/menu.model';
 import { Category } from '../../models/category.model';
 import { mongoose } from '@typegoose/typegoose';
 import { Order } from '../../models/order.model';
+import { AuthGuard } from '@nestjs/passport';
 
 class CreateOrderDto {
     detail: [OrderDetail];
@@ -24,6 +25,7 @@ class OrderDetail {
 
 @Controller('client/order')
 @ApiUseTags('client-注文')
+@UseGuards(AuthGuard())
 export class OrderController {
     public restrantName = process.env.RESTRANT_NAME;
 
@@ -38,7 +40,7 @@ export class OrderController {
     @Get(':id')
     @ApiOperation({ title: 'テーブルを指定しメニューを表示する' })
     async detail(@Param('id') id: string) {
-        if (!mongoose.Types.ObjectId.isValid(id)) { throw new HttpException('正しいIDを指定してください', 401); }
+        if (!mongoose.Types.ObjectId.isValid(id)) { throw new HttpException('正しいIDを指定してください', 403); }
         const table = await this.tableModel.findById(id);
         if (!table) { throw new HttpException('テーブルが見つかりませんでした', 403); }
         //const user = await this.userModel.findById('5d99f5ac7b4562548795fd62');
