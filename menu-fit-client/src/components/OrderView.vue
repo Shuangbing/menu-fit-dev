@@ -1,7 +1,7 @@
 <template>
   <div>
     <md-button
-      style="position: absolute; z-index: 1000;  bottom: 5%; right: 5%; width: 15rem;"
+      style="position: absolute; z-index: 1000;  height: 2.5rem; bottom: 1rem; right: 1rem; width: 15rem; font-size: 1rem;"
       type="primary"
       v-on:click="isCartShow = true"
       round
@@ -52,14 +52,11 @@
       @change="category_filter"
       :maxLength="10"
     />
-    <div style="position: relative; overflow: hidden; height: 75%;">
-      <md-scroll-view
-        :scrolling-x="false"
-        style="bottom: 0; height: 100vh; padding: 0 1.5rem;"
-        :auto-reflow="true"
-      >
+    <div style="position:relative; overflow: hidden; height: auto; bottom: 0;">
+      <md-scroll-view :scrolling-x="false" :auto-reflow="true" style="height: 70vh; padding: 0 1.5rem;">
+        
         <md-cell-item
-          style="border-bottom .5px solid #efefef"
+          class="scroll-view-item"
           v-for="item in menu_categories"
           v-bind:key="item._id"
           :title="item.title"
@@ -79,6 +76,7 @@
         </md-cell-item>
       </md-scroll-view>
     </div>
+    
   </div>
 </template>
 
@@ -187,8 +185,14 @@ export default {
 
 <style lang="stylus" scoped>
 .body {
-  height: 100%;
+  height: 100vh;
   background-color: #f9fafb;
+}
+
+.scroll-view-item {
+  padding: 30px 0;
+  font-size: 24px;
+  border-bottom: 0.5px solid #efefef;
 }
 
 .scroll {
@@ -215,7 +219,7 @@ export default {
 }
 
 .header {
-  height: 20%;
+  height: 20vh;
   display: flex;
   display: -webkit-flex;
   justify-content: space-between;
