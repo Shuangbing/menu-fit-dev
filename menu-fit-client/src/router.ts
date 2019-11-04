@@ -14,7 +14,7 @@ const router = new Router({
       children: [
         { name: 'detail', path: '/order/detail', component: () => import('./components/OrderDetailView.vue') },
         { path: '/order/:id', component: () => import('./components/OrderView.vue') },
-        { path: '/payment', component: () => import('./components/PaymentView.vue') },
+        { path: '/payment/:id', component: () => import('./components/PaymentView.vue') },
       ]
     },
 

@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <md-steps :steps="steps"></md-steps>
+    <md-steps style="padding: 100px 50px;" :steps="steps"></md-steps>
     <div class="button">
       <md-button class="md-button-line" @click="LoginLine" type="default">LINEでログイン</md-button>
       <md-button class="md-button-alipay" type="default">Alipayでログイン</md-button>
@@ -9,14 +9,15 @@
 </template>
 
 <style lang="stylus" scoped>
+
 .main {
   background-color: #f9fafb;
-  height: 100vh;
 }
 
 .button {
   margin: 30px 30px 30px 30px;
-  height: 90vh;
+  height: auto;
+  padding: 50px 0;
 }
 
 .md-button-line {
@@ -56,10 +57,11 @@ export default {
   },
   methods: {
     async LoginLine() {
-      await this.$http.get("/client/auth/login?tableID=" + this.$route.query.tableID)
-      .then(res => {
-        window.location = res.data
-      })
+      await this.$http
+        .get("/client/auth/login?tableID=" + this.$route.query.tableID)
+        .then(res => {
+          window.location = res.data;
+        });
     }
   }
 };

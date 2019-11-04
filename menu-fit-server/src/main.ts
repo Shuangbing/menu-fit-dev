@@ -10,6 +10,7 @@ import * as history from 'connect-history-api-fallback';
 async function bootstrap() {
   dotenv.config();
   const app = await NestFactory.create(AppModule);
+  app.setGlobalPrefix('api');
   app.useGlobalPipes(new ValidationPipe({ disableErrorMessages: true, transform: true }));
 
   const options = new DocumentBuilder()
@@ -21,8 +22,6 @@ async function bootstrap() {
   SwaggerModule.setup('api-docs', app, document);
   app.enableCors();
   app.use('/admin', serveStatic(join(__dirname, '../public/admin')));
-  app.use(history());
-  app.use('/', serveStatic(join(__dirname, '../public/client')));
   await app.listen(process.env.SERVER_PORT || 3000);
 }
 bootstrap();

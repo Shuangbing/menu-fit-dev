@@ -15,6 +15,8 @@ export class Order {
     @prop()
     status: number;　// status: 支払状態 0:支払待ち 1:支払キャンセル 2:支払完了
     @prop()
+    transactionId: string;
+    @prop()
     detail: [{
         menu: Ref<Menu>,
         amount: number,

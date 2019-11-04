@@ -2,7 +2,6 @@ import { Injectable, HttpException } from '@nestjs/common';
 import { InjectModel } from 'nestjs-typegoose';
 import { User } from '../../models/user.model';
 import { ReturnModelType } from '@typegoose/typegoose';
-import unirest = require('unirest');
 import * as jwt from 'jsonwebtoken';
 import { JwtService } from '@nestjs/jwt';
 import axios = require('axios');
