@@ -38,7 +38,7 @@
     "dotenv": "^8.1.0",
     "jsonwebtoken": "^8.5.1",
     "line-login": "^1.0.14",
-    "mongoose": "^5.7.3",
+    "mongoose": "^5.7.5",
     "multer-s3": "^2.9.0",
     "nestjs-typegoose": "^7.0.0",
     "passport": "^0.4.0",
