@@ -26,15 +26,22 @@ const router = new Router({
         { path: '/auth/login', component: () => import('./components/Auth/Login.vue') },
         { path: '/auth/callback', component: () => import('./components/Auth/CallBack.vue') },
       ]
+    },
+
+    {
+      path: '/go/:id',
+      beforeEnter: (to, from, next) => {
+        window.location.href = '/auth/login?tableID=' + to.params.id;
+      }
+    },
+
+    {
+      path: '*',
+      component: () => import('./components/Error/404.vue'),
     }
+    
   ]
 })
 
-// router.beforeEach((to, from, next) => {
-//   if (navigator.userAgent.indexOf('Line') == -1) {
-//     return next('order')
-//   }
-//   next()
-// })
 
 export default router;

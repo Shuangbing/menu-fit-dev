@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     async LoginLine() {
-      await this.$http.get("/client/auth/login?table=" + this.$route.query.table)
+      await this.$http.get("/client/auth/login?tableID=" + this.$route.query.tableID)
       .then(res => {
         window.location = res.data
       })

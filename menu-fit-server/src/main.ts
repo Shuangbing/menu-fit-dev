@@ -5,6 +5,8 @@ import { ValidationPipe } from '@nestjs/common';
 import * as serveStatic from 'serve-static';
 import { join } from 'path';
 import * as dotenv from 'dotenv';
+import * as history from 'connect-history-api-fallback';
+
 async function bootstrap() {
   dotenv.config();
   const app = await NestFactory.create(AppModule);
@@ -18,7 +20,9 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api-docs', app, document);
   app.enableCors();
-  app.use('/', serveStatic(join(__dirname, '../public')));
+  app.use('/admin', serveStatic(join(__dirname, '../public/admin')));
+  app.use(history());
+  app.use('/', serveStatic(join(__dirname, '../public/client')));
   await app.listen(process.env.SERVER_PORT || 3000);
 }
 bootstrap();

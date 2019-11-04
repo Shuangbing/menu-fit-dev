@@ -13,9 +13,9 @@ export class AuthController {
     ) { }
 
     @Get('login')
-    async Login(@Query('table') table: string) {
-        if (table !== undefined) {
-            return await this.authService.auth(table);
+    async Login(@Query('tableID') tableID: string) {
+        if (tableID !== undefined) {
+            return await this.authService.auth(tableID);
         } else {
             return await this.authService.auth(null);
         }

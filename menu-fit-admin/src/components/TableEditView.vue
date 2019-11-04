@@ -16,7 +16,7 @@
     >
       <a-card hoverable style="width: 250px; font-size: 12px">
         <qrcode-vue
-          :value="this.$http.defaults.baseURL +'/web/client/order/'+ this.id"
+          :value="handleQrURL(this.id)"
           :size="200"
           level="L"
         ></qrcode-vue>
@@ -50,6 +50,9 @@ export default {
     QrcodeVue
   },
   methods: {
+    handleQrURL(tableID) {
+      return window.location.protocol + '//' + window.location.host + '/go/' + tableID;
+    },
     async fetch(params = {}) {
       if (this.id) {
         this.loading = true;
