@@ -29,7 +29,7 @@ export class AuthService {
         return await this.userModel.findById(payload.userId);
     }
 
-    auth(table: string) {
+    async auth(table: string) {
         return 'https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id='
             + process.env.LINE_CHANNEL_ID
             + '&redirect_uri=' + encodeURIComponent(process.env.LINE_CALLBACK_URL + '?table=' + table)

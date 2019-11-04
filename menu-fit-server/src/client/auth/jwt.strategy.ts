@@ -1,7 +1,7 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { AuthService } from './auth.service';
 import { PassportStrategy } from '@nestjs/passport';
-import { Injectable, UnauthorizedException, HttpException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, HttpException, Req } from '@nestjs/common';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -15,7 +15,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     async validate(payload) {
         const user = await this.authService.validateUser(payload);
         if (!user) {
-            throw new HttpException('もう一度ログインしてください', 401);;
+            throw new HttpException('もう一度ログインしてください', 401);
         }
         return user;
     }

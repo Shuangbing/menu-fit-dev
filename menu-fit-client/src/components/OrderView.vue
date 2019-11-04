@@ -118,14 +118,14 @@ export default {
           });
         }
       });
-
       await this.$http
         .post("/client/order/" + this.id, { detail: order })
         .then(res => {
-          console.log(res);
+          this.$router.push({
+            name: "detail",
+            query: { orderID: res.data.orderID }
+          });
         });
-      //console.log(order)
-      //$router.push('detail');
     },
     async category_filter(item, index, prevIndex) {
       this.menu_categories = [];
@@ -155,7 +155,6 @@ export default {
           if (error.response.status === 401) {
             this.$router.push("/auth/login?table=" + this.id);
           }
-          
         });
     }
   },

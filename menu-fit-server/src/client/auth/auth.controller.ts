@@ -1,5 +1,4 @@
 import { Controller, Get, Response, Param, Query, HttpException } from '@nestjs/common';
-import * as express from 'express';
 import { InjectModel } from 'nestjs-typegoose';
 import { User } from '../../models/user.model';
 import { ApiUseTags } from '@nestjs/swagger';

@@ -7,19 +7,17 @@
           <p class="desc">注文内容を確認し支払いをしてください</p>
         </div>
         <md-detail-item title="注文内容" />
-        <md-detail-item title="唐揚げ６個入り ¥100 x 2">&yen;100</md-detail-item>
-        <md-detail-item title="唐揚げ６個入り ¥100 x 2">&yen;100</md-detail-item>
-        <md-detail-item title="唐揚げ６個入り ¥100 x 2">&yen;100</md-detail-item>
-        <md-detail-item title="唐揚げ６個入り ¥100 x 2">&yen;100</md-detail-item>
-        <md-detail-item title="唐揚げ６個入り ¥100 x 2">&yen;100</md-detail-item>
-        <md-detail-item title="唐揚げ６個入り ¥100 x 2">&yen;100</md-detail-item>
-        <md-detail-item title="唐揚げ６個入り ¥100 x 2">&yen;100</md-detail-item>
-        <md-detail-item title="合計金額">&yen;30,000</md-detail-item>
+        <md-detail-item
+          v-for="(item, index) in order.detail"
+          :key="index"
+          :title="item.menu.title +  ' x ' + item.amount"
+        >&yen;{{item.total}}</md-detail-item>
+        <md-detail-item title="合計金額">&yen;{{this.order.total}}</md-detail-item>
         <div class="footer-slot" slot="footer">
           <md-field title="支払方法" class="radio-field">
             <md-radio-list v-model="payment" :options="payments" icon-size="lg" />
           </md-field>
-          <md-button type="primary" round>支払う</md-button>
+          <md-button type="primary" @click="confirmPayment" round>支払う</md-button>
         </div>
       </md-bill>
     </div>
@@ -37,21 +35,41 @@ export default {
     [Icon.name]: Icon,
     [Tag.name]: Tag
   },
+  mounted() {
+    this.fetch();
+  },
+  methods: {
+    async fetch() {
+      this.orderID = this.$route.query.orderID;
+      await this.$http.get("/client/order/detail/" + this.orderID).then(res => {
+        this.order = res.data.order;
+      });
+    },
+    async confirmPayment() {
+      await this.$http
+        .get("/client/payment/" + this.payment + "/" + this.orderID)
+        .then(res => {
+          window.location = res.data.paymentURL
+        });
+    }
+  },
   data() {
     return {
+      orderID: null,
+      order: null,
       payments: [
-          {
-          value: 'line_pay',
-          text: 'LINE Pay',
-          brief: 'サクッと!ポイント2倍!',
+        {
+          value: "line-pay",
+          text: "LINE Pay",
+          brief: "サクッと!ポイント2倍!"
         },
         {
-          value: 'cash',
-          text: '現金',
-          brief: '100円につき1ポイント',
-        },
+          value: "cash",
+          text: "現金",
+          brief: "100円につき1ポイント"
+        }
       ],
-      payment: "line_pay"
+      payment: "line-pay"
     };
   }
 };

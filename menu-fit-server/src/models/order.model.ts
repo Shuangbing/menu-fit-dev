@@ -5,11 +5,11 @@ import { Table } from './table.model';
 
 export class Order {
     @prop({ ref: User })
-    users: [Ref<User>];
+    user: Ref<User>;
     @prop({ ref: Table })
-    table: Ref<User>;
+    table: Ref<Table>;
     @prop()
-    amount: number;
+    total: number;
     @prop()
     payment: string;
     @prop()
@@ -18,5 +18,6 @@ export class Order {
     detail: [{
         menu: Ref<Menu>,
         amount: number,
+        total: number;
     }];
 }

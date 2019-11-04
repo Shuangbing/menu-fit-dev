@@ -14,7 +14,6 @@ export default {
   },
   methods: {
     async fetch() {
-      console.log(this.$route.query);
       await this.$http
         .get("/client/auth/callback", {
           params: {
@@ -24,7 +23,6 @@ export default {
           }
         })
         .then(res => {
-          console.log(res);
           if (res.data.access_token) {
             localStorage.token = res.data.access_token;
             if (this.$route.query.table) {
