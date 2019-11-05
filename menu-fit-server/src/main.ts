@@ -5,7 +5,6 @@ import { ValidationPipe } from '@nestjs/common';
 import * as serveStatic from 'serve-static';
 import { join } from 'path';
 import * as dotenv from 'dotenv';
-import * as history from 'connect-history-api-fallback';
 
 async function bootstrap() {
   dotenv.config();
@@ -17,6 +16,7 @@ async function bootstrap() {
     .setTitle('Menu.Fit Server API')
     .setDescription('Menu.Fit Server API description')
     .setVersion('1.0')
+    .setBasePath('api')
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api-docs', app, document);

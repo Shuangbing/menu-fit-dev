@@ -21,6 +21,7 @@ class PaymentConfirm {
 
 @Controller('client/payment')
 @ApiUseTags('client-支払い')
+@UseGuards(AuthGuard())
 export class PaymentController {
     constructor(
         @InjectModel(User) private readonly userModel,
@@ -36,7 +37,9 @@ export class PaymentController {
     async line_pay_confirm(@Body() paymentConfirm: PaymentConfirm) {
         const order = await this.orderModel.findById(paymentConfirm.orderId);
         const payment = await this.paymentService.LINE_PAY_CONFIRM(order.total, paymentConfirm.transactionId);
-        const orderUpdate = await this.orderModel.findByIdAndUpdate(paymentConfirm.orderId, { status: 1 });
+        const orderUpdate = await this.orderModel.findByIdAndUpdate(paymentConfirm.orderId, {
+            status: 1, transactionId: paymentConfirm.transactionId,
+        });
         if (orderUpdate) {
             return payment;
         } else {
@@ -46,11 +49,10 @@ export class PaymentController {
 
     @Get('line-pay/:id')
     @ApiOperation({ title: 'LINE_PAYで支払う' })
-    @UseGuards(AuthGuard())
     async line_pay(@Param('id') id: string) {
         const order = await this.orderModel.findById(id);
         const payment = await this.paymentService.LINE_PAY_APPLY(order._id, order.total);
-        const orderUpdate = await this.orderModel.findByIdAndUpdate(id, { transactionId: payment.transactionId, payment: 'line-pay' });
+        const orderUpdate = await this.orderModel.findByIdAndUpdate(id, { payment: 'line-pay' });
         if (orderUpdate) {
             return payment;
         } else {

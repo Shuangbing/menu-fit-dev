@@ -1,5 +1,11 @@
-import { prop, Ref } from '@typegoose/typegoose';
+import { prop, Ref, modelOptions } from '@typegoose/typegoose';
 import { User } from './user.model';
+
+@modelOptions({
+    schemaOptions: {
+        timestamps: true,
+    },
+})
 
 export class Table {
     @prop()

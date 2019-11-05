@@ -1,7 +1,13 @@
-import { prop, Ref } from '@typegoose/typegoose';
+import { prop, Ref, modelOptions } from '@typegoose/typegoose';
 import { User } from './user.model';
 import { Menu } from './menu.model';
 import { Table } from './table.model';
+
+@modelOptions({
+    schemaOptions: {
+        timestamps: true,
+    },
+})
 
 export class Order {
     @prop({ ref: User })

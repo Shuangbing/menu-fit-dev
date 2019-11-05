@@ -23,6 +23,7 @@ export default new Router({
         { path: '/table', component: () => import('./components/TableView.vue') },
         { path: '/table/add', component: () => import('./components/TableEditView.vue') },
         { path: '/table/:id', component: () => import('./components/TableEditView.vue') },
+        { path: '/order', component: () => import('./components/OrderView.vue') },
       ]
     },
     {
