@@ -1,4 +1,4 @@
-import { Controller, Get, Param, HttpException, UseGuards, Post, Body, Req } from '@nestjs/common';
+import { Controller, Get, Param, HttpException, UseGuards, Post, Body, Req, Delete } from '@nestjs/common';
 import { IsNotEmpty, IsNotIn } from 'class-validator';
 import { ApiUseTags, ApiOperation, ApiModelProperty } from '@nestjs/swagger';
 import { InjectModel } from 'nestjs-typegoose';
@@ -85,6 +85,20 @@ export class OrderController {
         });
         return {
             orderID: order._id,
+        };
+    }
+
+    @Delete(':id')
+    @ApiOperation({ title: '注文をキャンセルする' })
+    async cancel(@Param('id') id: string) {
+        if (!mongoose.Types.ObjectId.isValid(id)) { throw new HttpException('正しいIDを指定してください', 403); }
+        const order = await this.orderModel.findById(id);
+        if (!order) { throw new HttpException('注文がありません', 403); }
+        if (order.status !== 0) { throw new HttpException('支払中の注文はキャンセルできません', 403); }
+        order.status = -1;
+        order.save();
+        return {
+            success: true,
         };
     }
 

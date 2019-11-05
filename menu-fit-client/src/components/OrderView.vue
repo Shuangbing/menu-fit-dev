@@ -1,7 +1,7 @@
 <template>
   <div>
     <md-button
-      style="position: absolute; z-index: 1000;  height: 2.5rem; bottom: 1rem; right: 1rem; width: 15rem; font-size: 1rem;"
+      style="position: absolute; z-index: 1000;  height: 3rem; bottom: 1rem; right: 1rem; width: 15rem; font-size: 1rem;"
       type="primary"
       v-on:click="isCartShow = true"
       round
@@ -30,7 +30,7 @@
               </md-cell-item>
             </div>
           </md-field>
-          <md-button type="primary" round>
+          <md-button type="primary" @click="confirmOrder" round>
             合計金額
             <p style="margin: 0 3px; font-size: 1.5rem;">¥</p>
             <md-amount :value="totalPrice()" :precision="0" has-separator></md-amount>
@@ -121,7 +121,7 @@ export default {
         .then(res => {
           this.$router.push({
             name: "detail",
-            query: { orderID: res.data.orderID }
+            query: { orderID: res.data.orderID, tableID: this.id }
           });
         });
     },

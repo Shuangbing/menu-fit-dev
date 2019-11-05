@@ -17,7 +17,8 @@
           <md-field title="支払方法" class="radio-field">
             <md-radio-list v-model="payment" :options="payments" icon-size="lg" />
           </md-field>
-          <md-button type="primary" @click="confirmPayment" round>支払う</md-button>
+          <md-button type="primary" style="margin: 10px 0;" @click="confirmPayment" round>支払う</md-button>
+          <md-button type="warning" @click="cancelOrder" round>キャンセル</md-button>
         </div>
       </md-bill>
     </div>
@@ -25,7 +26,7 @@
 </template>
 
 <script>
-import { Bill, DetailItem, Icon, Tag } from "mand-mobile";
+import { Bill, DetailItem, Icon, Tag, Dialog } from "mand-mobile";
 
 export default {
   name: "bill-demo",
@@ -45,11 +46,23 @@ export default {
         this.order = res.data.order;
       });
     },
+    async cancelOrder() {
+      Dialog.confirm({
+        title: "確認",
+        content: "注文をキャンセルしますか",
+        cancelText: "いいえ",
+        confirmText: "はい",
+        onConfirm: () => {
+          this.$http.delete("/client/order/" + this.orderID)
+          .then(res => this.$router.push("/order/" + this.$route.query.tableID))
+        }
+      });
+    },
     async confirmPayment() {
       await this.$http
         .get("/client/payment/" + this.payment + "/" + this.orderID)
         .then(res => {
-          window.location = res.data.paymentURL
+          window.location = res.data.paymentURL;
         });
     }
   },
