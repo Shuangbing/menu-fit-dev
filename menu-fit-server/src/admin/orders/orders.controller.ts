@@ -19,6 +19,7 @@ export class OrdersController {
             .populate({
                 path: 'detail.menu',
                 model: 'Menu',
-            });
+            })
+            .sort('-createdAt');
     }
 }
