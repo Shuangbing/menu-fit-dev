@@ -40,6 +40,11 @@ export default {
   components: {
     [Steps.name]: Steps
   },
+  mounted() {
+    if (navigator.userAgent.includes('Line/')) {
+      this.LoginLine()
+    }
+  },
   data() {
     return {
       steps: [
