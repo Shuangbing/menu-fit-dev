@@ -4,6 +4,7 @@
       <a-checkbox @change="onChange">自動更新</a-checkbox>
       <a-button type="primary" icon="redo" :loading="loading" @click="fetch">更新</a-button>
     </div>
+   
     <a-table :columns="columns" :dataSource="data" :loading="loading">
       <template slot="table" slot-scope="table">
         <a-tag color="#808080">{{ table.tableNo }}</a-tag>
@@ -42,8 +43,6 @@
       </template>
     </a-table>
   </div>
-</template>
-  </a-table>
 </template>
 <script>
 const columns = [

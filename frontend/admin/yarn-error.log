@@ -1,0 +1,47 @@
+Arguments: 
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.19.1/libexec/bin/yarn.js
+
+PATH: 
+  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin
+
+Yarn version: 
+  1.19.1
+
+Node version: 
+  12.13.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/@nuxt/types/-/types-0.3.3.tgz: ENOENT: no such file or directory, open '/Users/shuangbinghe/Library/Caches/Yarn/v6/npm-@nuxt-types-0.3.3-0a43df2105191e17712b42b7788c2f49394a7375-integrity/node_modules/@nuxt/types/.yarn-tarball.tgz'
+
+npm manifest: 
+  {
+    "name": "admin",
+    "description": "Nuxt.js TypeScript project",
+    "version": "2.10.2",
+    "private": true,
+    "dependencies": {
+      "@nuxtjs/axios": "5.8.0",
+      "@nuxt/typescript-runtime": "0.2.3",
+      "nuxt": "2.10.2",
+      "nuxt-property-decorator": "2.5.0",
+      "vuex-class": "0.3.2"
+    },
+    "scripts": {
+      "dev": "nuxt-ts",
+      "build": "nuxt-ts build",
+      "start": "nuxt-ts start",
+      "generate": "nuxt-ts generate"
+    },
+    "devDependencies": {
+      "@nuxt/typescript-build": "0.3.3"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

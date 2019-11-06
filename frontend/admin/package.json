@@ -1,0 +1,24 @@
+{
+  "name": "admin",
+  "description": "Nuxt.js TypeScript project",
+  "version": "2.10.2",
+  "private": true,
+  "dependencies": {
+    "@nuxt/typescript-runtime": "0.2.3",
+    "@nuxtjs/axios": "5.8.0",
+    "ant-design-vue": "^1.4.4",
+    "nuxt": "2.10.2",
+    "nuxt-property-decorator": "2.5.0",
+    "qrcode.vue": "^1.6.3",
+    "vuex-class": "0.3.2"
+  },
+  "scripts": {
+    "dev": "nuxt-ts --port 8080",
+    "build": "nuxt-ts build",
+    "start": "nuxt-ts start",
+    "generate": "nuxt-ts generate"
+  },
+  "devDependencies": {
+    "@nuxt/typescript-build": "0.3.3"
+  }
+}
