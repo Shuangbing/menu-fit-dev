@@ -1,4 +1,3 @@
-import { response } from "express"
 
 export default function ({ $axios, redirect, store }) {
     $axios.onRequest(config => {

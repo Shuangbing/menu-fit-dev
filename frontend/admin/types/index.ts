@@ -1,4 +1,5 @@
 export * from './state';
+import { NuxtAxiosInstance } from "@nuxtjs/axios"
 
 export interface Person {
   id: number;

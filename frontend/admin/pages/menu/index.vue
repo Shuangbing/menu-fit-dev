@@ -1,7 +1,8 @@
 <template>
 	<div>
+		<MenuForm :editData="editData" :categories="categories" />
 		<div style="text-align: right; margin-bottom: 10px;">
-			<a-button type="primary" @click="$router.push('/menu/add')">新規追加</a-button>
+			<a-button type="primary" @click="showEditor(null)">新規追加</a-button>
 		</div>
 		<a-table
 			:columns="columns"
@@ -19,7 +20,7 @@
 					slot="action"
 					style="margin-right: 10px;"
 					type="primary"
-					@click="$router.push('/menu/'+data._id)"
+					@click="showEditor(data._id)"
 				>編集</a-button>
 				<a-button slot="action" type="danger">販売停止</a-button>
 			</template>
@@ -28,10 +29,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
+import { Component, Vue, Watch } from "nuxt-property-decorator";
+import MenuForm from "../../components/Form/Menu.vue";
 
-@Component({})
+@Component({
+	components: { MenuForm }
+})
 export default class MenuIndex extends Vue {
+	editData = {};
+	data = {};
 	pagination = {};
 	columns = [
 		{
@@ -65,8 +71,31 @@ export default class MenuIndex extends Vue {
 
 	async asyncData({ app }) {
 		return {
-			data: await app.$axios.$get("/admin/menus")
+			data: await app.$axios.$get("/admin/menus"),
+			categories: await app.$axios.$get("/admin/categories")
 		};
+	}
+
+	async refresh() {
+		this.data = await this.$axios.$get("/admin/menus");
+	}
+
+	async showEditor(editID?: string) {
+		if (editID) {
+			this.editData = await this.$axios.$get(
+				"/admin/menus/" + editID
+			);
+		} else {
+			this.editData = null;
+		}
+		this.$store.commit("showEditor", true);
+	}
+
+	@Watch("$store.state.editVisible")
+	private dataChange(val: any, oldVal: any) {
+		if (val == false) {
+			this.refresh();
+		}
 	}
 }
 </script>

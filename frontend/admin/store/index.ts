@@ -4,12 +4,16 @@ import { RootState, Person } from "~/types";
 import localRandomData from "~/static/random-data.json";
 
 export const state = () => ({
-  loading: false
+  loading: false,
+  editVisible: false,
 })
 
 export const mutations = {
   updateLoading (state, value) {
     state.loading = value
+  },
+  showEditor (state, value) {
+    state.editVisible = value
   }
 }
 
