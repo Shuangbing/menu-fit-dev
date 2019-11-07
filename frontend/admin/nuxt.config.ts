@@ -3,7 +3,7 @@ const envPath = `./.env.${process.env.ENV || 'local'}`
 dotenv.config({ path: envPath });
 
 export default {
-  mode: "universal",
+  mode: "spa",
   env: {},
   head: {
     title: "Menu.fit - Admin",
@@ -21,7 +21,7 @@ export default {
     dir: "../../server/public/admin",
   },
   router: {
-    base: process.env.BASE_DIR || './',
+    base: process.env.BASE_DIR || '/admin',
   },
   build: {},
   buildModules: ["@nuxt/typescript-build"],

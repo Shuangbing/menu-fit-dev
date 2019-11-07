@@ -3,7 +3,7 @@ const envPath = `./.env.${process.env.ENV || 'local'}`
 dotenv.config({ path: envPath });
 
 export default {
-  mode: "universal",
+  mode: "spa",
   env: {},
   head: {
     title: "Menu.fit",
