@@ -3,7 +3,7 @@ const envPath = `./.env.${process.env.ENV || 'local'}`
 dotenv.config({ path: envPath });
 
 export default {
-  mode: "spa",
+  mode: "universal",
   env: {},
   head: {
     title: "Menu.fit",
@@ -21,7 +21,7 @@ export default {
     dir: "../../server/public/client",
   },
   router: {
-    base: process.env.BASE_DIR || './',
+    base: process.env.BASE_DIR || '/',
   },
   build: {
     postcss: [
