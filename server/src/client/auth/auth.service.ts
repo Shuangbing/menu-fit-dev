@@ -43,7 +43,7 @@ export class AuthService {
             client_id: process.env.LINE_CHANNEL_ID,
             client_secret: process.env.LINE_CHANNEL_SECRET,
         })).catch(error => { throw new HttpException('認証できませんでした', 401); });
-        
+
         if (tokenPost.data.access_token && tokenPost.data.id_token) {
             const userInfo = jwt.decode(tokenPost.data.id_token);
             const user = await this.userModel.findOne({ openID: userInfo.sub });

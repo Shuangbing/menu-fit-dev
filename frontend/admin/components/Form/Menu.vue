@@ -28,7 +28,13 @@
 						:action="this.$axios.defaults.baseURL + '/admin/upload'"
 						@change="handleUpload"
 					>
-						<img width="250" height="250" v-if="this.data.picture" v-bind:src="this.data.picture" alt="avatar" />
+						<img
+							width="250"
+							height="250"
+							v-if="this.data.picture"
+							v-bind:src="this.data.picture"
+							alt="avatar"
+						/>
 						<div v-else>
 							<a-icon :type="$store.state.loading ? 'loading' : 'plus'" />
 							<div class="ant-upload-text">アップロード</div>

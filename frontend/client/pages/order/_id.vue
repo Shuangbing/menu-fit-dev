@@ -1,0 +1,147 @@
+<template>
+	<div>
+		<OrderBottom :totalPrice="totalPrice()" />
+		<OrderCart :menu="data.menu" :total="totalPrice()" :tableID="tableID" />
+		<md-dialog title="タイトル" :closable="true">内容</md-dialog>
+		<div class="header">
+			<div class="title">
+				<p>{{this.data.restrant_name}}</p>
+				<md-tag size="large" shape="circle" type="ghost" font-color="#FC7353">{{this.data.table_no}}</md-tag>
+			</div>
+			<img class="title" width="100" height="100" />
+		</div>
+		<md-tab-bar :items="data.categories" @change="categoryFilter" :maxLength="10" />
+		<div style="position:relative; overflow: hidden; height: auto; bottom: 0;">
+			<md-scroll-view
+				:scrolling-x="false"
+				:auto-reflow="true"
+				style="height: 70vh; padding: 0 1.5rem;"
+			>
+				<md-cell-item
+					class="scroll-view-item"
+					v-for="item in menuCategories"
+					v-bind:key="item._id"
+					:title="item.title"
+					no-border
+				>
+					<img class="holder" slot="left" :src="item.picture" />
+					<p style="font-size: 0.7rem; margin-top: 5px;">￥{{item.price}}</p>
+					<a>
+						<md-tag
+							size="small"
+							type="ghost"
+							style="font-size: 0.7rem; margin-top: 5px;"
+							font-color="#FC7353"
+						>アレルギー</md-tag>
+					</a>
+					<md-stepper v-model="item.cart" slot="right" min="0" max="5" read-only />
+				</md-cell-item>
+			</md-scroll-view>
+		</div>
+	</div>
+</template>
+
+<script lang="ts">
+import { Component, Vue } from "nuxt-property-decorator";
+import OrderBottom from "../../components/OrderBottom.vue";
+import OrderCart from "../../components/OrderCart.vue";
+
+@Component({
+	components: {
+		OrderBottom,
+		OrderCart
+	}
+})
+export default class Order extends Vue {
+	data: any = {};
+	menuCategories = [];
+
+	async asyncData({ app, params }) {
+		let data = await app.$axios.$get("/client/order/" + params.id);
+		data.categories.unshift({ name: "0", label: "すべて" });
+		return {
+			tableID: params.id,
+			data: data,
+			menuCategories: data.menu
+		};
+	}
+
+	totalPrice() {
+		var total = 0;
+		if (this.data.menu) {
+			this.data.menu.forEach(element => {
+				if (element.cart > 0) {
+					total = total + element.cart * element.price;
+				}
+			});
+			return total;
+		}
+	}
+
+	async categoryFilter(item, index, prevIndex) {
+		this.menuCategories = [];
+		if (item.name == 0) {
+			this.menuCategories = this.data.menu;
+			return;
+		}
+		if (this.data.menu) {
+			this.data.menu.forEach(element => {
+				if (element.category == item.name) {
+					this.menuCategories.push(element);
+				}
+			});
+		}
+	}
+}
+</script>
+
+<style scoped>
+.body {
+	height: 100vh;
+	background-color: #f9fafb;
+}
+
+.scroll-view-item {
+	padding: 30px 0;
+	font-size: 24px;
+	border-bottom: 0.5px solid #efefef;
+}
+
+.scroll {
+	box-sizing: border-box;
+	min-height: 100%;
+	height: 60vh;
+	padding-bottom: 100px;
+}
+
+.footer {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 35vh;
+}
+
+.holder {
+	display: block;
+	width: 100px;
+	height: 100px;
+	border-radius: 10px;
+	background-color: #e6e6e6;
+}
+
+.header {
+	height: 20vh;
+	display: flex;
+	display: -webkit-flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #f9fafb;
+}
+
+.title {
+	margin: 1rem 1rem 1rem 1rem;
+	font-size: 1.2rem;
+	border-radius: 1rem;
+}
+</style>

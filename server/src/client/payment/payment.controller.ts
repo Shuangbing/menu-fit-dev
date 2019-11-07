@@ -36,6 +36,9 @@ export class PaymentController {
     @ApiOperation({ title: 'LINE_PAYの支払い確認' })
     async line_pay_confirm(@Body() paymentConfirm: PaymentConfirm) {
         const order = await this.orderModel.findById(paymentConfirm.orderId);
+        if (order && order.status === 1) {
+            throw new HttpException('支払済の注文です', 201);
+        }
         const payment = await this.paymentService.LINE_PAY_CONFIRM(order.total, paymentConfirm.transactionId);
         const orderUpdate = await this.orderModel.findByIdAndUpdate(paymentConfirm.orderId, {
             status: 1, transactionId: paymentConfirm.transactionId,

@@ -19,6 +19,9 @@
         ]"
 					/>
 				</a-form-item>
+				<a-form-item v-if="this.editData" label="認識ID">
+					<span>{{this.data._id}}</span>
+				</a-form-item>
 				<a-form-item v-if="this.editData" label="注文QRコード">
 					<a-card hoverable style="width: 250px; font-size: 12px">
 						<qrcode-vue :value="getQRCodeURL(this.data._id)" :size="200" level="L"></qrcode-vue>
@@ -76,12 +79,14 @@ export default class TableForm extends Vue {
 
 	async submitForm() {
 		if (this.editData) {
-			await this.$axios.put("/admin/tables/" + this.editData._id, this.data);
+			await this.$axios.put(
+				"/admin/tables/" + this.editData._id,
+				this.data
+			);
 		} else {
 			await this.$axios.post("/admin/tables/", this.data);
 		}
 		this.onClose();
 	}
-
 }
 </script>

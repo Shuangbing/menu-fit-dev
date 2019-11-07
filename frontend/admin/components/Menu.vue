@@ -5,7 +5,7 @@
 			<a-menu
 				theme="dark"
 				mode="horizontal"
-				:defaultSelectedKeys="['2']"
+				:defaultSelectedKeys="['1']"
 				:style="{ lineHeight: '64px' }"
 			>
 				<a-menu-item key="1">ホーム</a-menu-item>
@@ -35,12 +35,7 @@
 					</a-sub-menu>
 				</a-menu>
 			</a-layout-sider>
-			<a-layout style="padding: 0 24px 24px">
-				<a-breadcrumb style="margin: 16px 0">
-					<a-breadcrumb-item>ホーム</a-breadcrumb-item>
-					<a-breadcrumb-item>顧客管理</a-breadcrumb-item>
-					<a-breadcrumb-item>来店中の顧客</a-breadcrumb-item>
-				</a-breadcrumb>
+			<a-layout style="padding: 24px 24px 24px 24px">
 				<a-layout-content
 					:style="{ background: '#fff', padding: '24px', margin: 0 , minHeight: '90vh'}"
 				>
@@ -89,7 +84,7 @@ export default class Menu extends Vue {
 			key: "table",
 			subMenu: [
 				{
-					title: "テーブル一覧",
+					title: "テーブル",
 					path: "/table"
 				}
 			]
@@ -112,3 +107,13 @@ export default class Menu extends Vue {
 	];
 }
 </script>
+
+<style>
+.logo {
+	width: 150px;
+	height: 31px;
+	background: rgba(255, 255, 255, 0.2);
+	margin: 16px 28px 16px 0;
+	float: left;
+}
+</style>
