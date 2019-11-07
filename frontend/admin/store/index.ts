@@ -1,7 +1,6 @@
 import { MutationTree, ActionTree, ActionContext } from "vuex";
 import { Context as AppContext } from "@nuxt/types";
 import { RootState, Person } from "~/types";
-import localRandomData from "~/static/random-data.json";
 
 export const state = () => ({
   loading: false,

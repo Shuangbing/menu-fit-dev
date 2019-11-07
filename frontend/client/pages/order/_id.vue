@@ -8,7 +8,7 @@
 				<p>{{this.data.restrant_name}}</p>
 				<md-tag size="large" shape="circle" type="ghost" font-color="#FC7353">{{this.data.table_no}}</md-tag>
 			</div>
-			<img class="title" width="100" height="100" />
+			<img class="title" src="/shop.jpg" width="100" height="100" />
 		</div>
 		<md-tab-bar :items="data.categories" @change="categoryFilter" :maxLength="10" />
 		<div style="position:relative; overflow: hidden; height: auto; bottom: 0;">
