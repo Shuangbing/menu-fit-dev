@@ -67,7 +67,7 @@ export default class TableForm extends Vue {
 				window.location.protocol +
 				"//" +
 				window.location.host +
-				"/go/" +
+				"/auth/login?tableID=" +
 				tableID
 			);
 		}
