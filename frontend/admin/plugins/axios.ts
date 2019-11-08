@@ -1,6 +1,11 @@
 
-export default function ({ $axios, redirect, store }) {
+import { message } from 'ant-design-vue'
+
+export default function ({ $axios, redirect, store, app }) {
     $axios.onRequest(config => {
+        if (process.browser && localStorage.token) {
+            config.headers.Authorization = 'Bearer ' + localStorage.token
+        }
         store.commit('updateLoading', true)
     })
 
@@ -9,10 +14,8 @@ export default function ({ $axios, redirect, store }) {
     })
 
     $axios.onError(error => {
+        if (error.response.status) redirect('/auth/login')
+        if (error.response.data.message) message.info(error.response.data.message)
         store.commit('updateLoading', false)
-        const code = parseInt(error.response && error.response.status)
-        if (code === 400) {
-            redirect('/400')
-        }
     })
 }

@@ -1,9 +1,11 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 import { InjectModel } from 'nestjs-typegoose';
 import { Order } from '../../models/order.model';
 import { ApiUseTags, ApiOperation } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('admin/orders')
+@UseGuards(AuthGuard('jwt'))
 @ApiUseTags('注文')
 export class OrdersController {
     constructor(

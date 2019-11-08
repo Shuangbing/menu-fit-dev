@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Put, Body, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Put, Body, Param, Delete, UseGuards } from '@nestjs/common';
 import { ApiUseTags, ApiOperation, ApiModelProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsNotIn } from 'class-validator';
 import { Table } from '../../models/table.model';
 import { InjectModel } from 'nestjs-typegoose';
+import { AuthGuard } from '@nestjs/passport';
 
 class CreateTableDto {
     @ApiModelProperty({ description: 'テーブルの番号', example: 'A-1' })
@@ -11,6 +12,7 @@ class CreateTableDto {
 }
 
 @Controller('admin/tables')
+@UseGuards(AuthGuard('jwt'))
 @ApiUseTags('テーブル')
 export class TablesController {
     constructor(

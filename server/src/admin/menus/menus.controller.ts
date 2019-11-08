@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Delete, UseGuards } from '@nestjs/common';
 import { ApiUseTags, ApiOperation, ApiModelProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
 import { InjectModel } from 'nestjs-typegoose';
 import { Menu } from '../../models/menu.model';
 import { Category } from '../../models/category.model';
+import { AuthGuard } from '@nestjs/passport';
 
 class CreateMenuDto {
     @ApiModelProperty({ description: 'メニューのタイトル', example: 'Food 1' })
@@ -26,6 +27,7 @@ class MenuOption {
 }
 
 @Controller('admin/menus')
+@UseGuards(AuthGuard('jwt'))
 @ApiUseTags('メニュー')
 export class MenusController {
     constructor(

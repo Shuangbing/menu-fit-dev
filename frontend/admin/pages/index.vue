@@ -14,6 +14,6 @@ import { Person } from "../types";
 	}
 })
 export default class extends Vue {
-	@State people!: Person;
+	
 }
 </script>
