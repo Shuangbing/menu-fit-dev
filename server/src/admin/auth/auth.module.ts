@@ -6,20 +6,20 @@ import { AuthService } from './auth.service';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
+import { ClientModule } from '../../client/client.module';
 
 @Module({
     controllers: [AuthController],
     imports: [
         PassportModule.register({ defaultStrategy: 'jwt' }),
-        JwtModule.register({
-            secret: 'secretKey',
-            signOptions: {
-                expiresIn: '1day',
-            },
+        JwtModule.registerAsync({
+            useFactory: () => ({
+                secret: 'secretKey',
+            }),
         }),
         TypegooseModule.forFeature([Admin]),
     ],
     providers: [AuthService, JwtStrategy],
     exports: [PassportModule, AuthService],
 })
-export class AuthModule { }
+export class AuthAdminModule { }

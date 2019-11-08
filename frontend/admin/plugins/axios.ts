@@ -3,8 +3,8 @@ import { message } from 'ant-design-vue'
 
 export default function ({ $axios, redirect, store, app }) {
     $axios.onRequest(config => {
-        if (process.browser && localStorage.token) {
-            config.headers.Authorization = 'Bearer ' + localStorage.token
+        if (process.browser && localStorage.adminToken) {
+            config.headers.Authorization = 'Bearer ' + localStorage.adminToken
         }
         store.commit('updateLoading', true)
     })

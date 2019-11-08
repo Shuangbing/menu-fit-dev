@@ -5,7 +5,7 @@ import { ApiUseTags, ApiOperation } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('admin/orders')
-@UseGuards(AuthGuard('jwt'))
+@UseGuards(AuthGuard('jwt-admin'))
 @ApiUseTags('注文')
 export class OrdersController {
     constructor(

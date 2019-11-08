@@ -25,6 +25,13 @@ export default class Login extends Vue {
 		}
 	];
 
+	async mounted() {
+		//Auto Login by LINE
+		if (navigator.userAgent.includes("Line/")) {
+			this.LoginLine()
+		}
+	}
+
 	async LoginLine() {
 		await this.$axios
 			.get("/client/auth/login?tableID=" + this.$route.query.tableID)
@@ -38,7 +45,7 @@ export default class Login extends Vue {
 <style scoped>
 .main {
 	background-color: #f9fafb;
-  height: 100vh;
+	height: 100vh;
 }
 
 .button {

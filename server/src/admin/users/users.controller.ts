@@ -5,7 +5,7 @@ import { User } from '../../models/user.model';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('admin/users')
-@UseGuards(AuthGuard('jwt'))
+@UseGuards(AuthGuard('jwt-admin'))
 @ApiUseTags('ユーザー')
 export class UsersController {
     constructor(

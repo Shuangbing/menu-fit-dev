@@ -11,11 +11,10 @@ import { JwtStrategy } from './jwt.strategy';
   controllers: [AuthController],
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
-    JwtModule.register({
-      secret: 'secretKey',
-      signOptions: {
-        expiresIn: 36000,
-      },
+    JwtModule.registerAsync({
+      useFactory: () => ({
+        secret: 'secretKey',
+      }),
     }),
     TypegooseModule.forFeature([User]),
   ],

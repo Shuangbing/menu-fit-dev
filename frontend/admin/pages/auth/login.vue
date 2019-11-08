@@ -33,7 +33,7 @@ export default class Login extends Vue {
 	async handleLogin() {
 		this.$axios.post("/admin/auth/login", this.data).then(res => {
 			if (res.data.access_token && process.client) {
-				localStorage.token = res.data.access_token;
+				localStorage.adminToken = res.data.access_token;
 				this.$router.push("/");
 			}
 		});

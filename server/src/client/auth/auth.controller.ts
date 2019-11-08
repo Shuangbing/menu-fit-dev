@@ -1,11 +1,11 @@
 import { Controller, Get, Response, Param, Query, HttpException } from '@nestjs/common';
 import { InjectModel } from 'nestjs-typegoose';
 import { User } from '../../models/user.model';
-import { ApiUseTags } from '@nestjs/swagger';
+import { ApiUseTags, ApiOperation } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 
 @Controller('client/auth')
-@ApiUseTags('認証')
+@ApiUseTags('client-認証')
 export class AuthController {
     constructor(
         @InjectModel(User) private readonly userModel,
@@ -13,6 +13,7 @@ export class AuthController {
     ) { }
 
     @Get('login')
+    @ApiOperation({ title: 'ログイン' })
     async Login(@Query('tableID') tableID: string) {
         if (tableID !== undefined) {
             return await this.authService.auth(tableID);
@@ -22,6 +23,7 @@ export class AuthController {
     }
 
     @Get('callback')
+    @ApiOperation({ title: 'ログイン呼び出し認証' })
     async CallBack(
         @Query('code') code: string,
         @Query('state') state: string,
