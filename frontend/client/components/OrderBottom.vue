@@ -1,6 +1,7 @@
 <template>
-	<div class="main">
-		<md-action-bar :actions="data" @click="openCart">
+	<div>
+		<md-action-bar class="main" :actions="data" @click="openCart">
+			<md-icon name="setting" size="lg" @click="openSetting"></md-icon>
 			<span class="price">
 				<small>合計</small>
 				&yen;{{totalPrice}}
@@ -26,17 +27,24 @@ export default class OrderButton extends Vue {
 		}
 	];
 
+	openSetting() {
+		this.$router.push('/user')
+	}
+
 	openCart() {
 		if (this.totalPrice > 0) {
 			this.$store.commit("setCartVisible", true);
 		} else {
-			Toast.info('料理を選んでから注文してください')
+			Toast.info("料理を選んでから注文してください");
 		}
 	}
 }
 </script>
 
 <style>
+.main {
+	padding: 10px 1.5rem 1.5rem 1.5rem;
+}
 .price {
 	font-weight: 500;
 	font-size: 1.1rem;
