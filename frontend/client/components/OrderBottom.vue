@@ -1,27 +1,50 @@
 <template>
-	<div>
-		<md-button
-			style="position: absolute; z-index: 1000;  height: 3rem; bottom: 1rem; right: 1rem; width: 15rem; font-size: 1rem;"
-			type="primary"
-			@click="openCart"
-			round
-		>
-			合計金額
-			<p style="margin: 0 3px; font-size: 1.5rem;">¥</p>
-			<md-amount :value="totalPrice" :precision="0" has-separator></md-amount>
-		</md-button>
+	<div class="main">
+		<md-action-bar :actions="data" @click="openCart">
+			<span class="price">
+				<small>合計</small>
+				&yen;{{totalPrice}}
+			</span>
+		</md-action-bar>
 	</div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from "nuxt-property-decorator";
+import { Toast } from "mand-mobile";
 
 @Component({})
 export default class OrderButton extends Vue {
 	@Prop() totalPrice: number;
 
+	data = [
+		{
+			type: "default",
+			icon: "edit",
+			text: "注文",
+			round: true
+		}
+	];
+
 	openCart() {
-		this.$store.commit("setCartVisible", true);
+		if (this.totalPrice > 0) {
+			this.$store.commit("setCartVisible", true);
+		} else {
+			Toast.info('料理を選んでから注文してください')
+		}
 	}
 }
 </script>
+
+<style>
+.price {
+	font-weight: 500;
+	font-size: 1.1rem;
+	color: #ff823a;
+}
+.price small {
+	margin-left: 10px;
+	font-size: 1rem;
+	color: #858b9c;
+}
+</style>

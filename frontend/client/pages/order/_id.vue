@@ -1,12 +1,17 @@
 <template>
 	<div>
-		<OrderBottom :totalPrice="totalPrice()" />
 		<OrderCart :menu="data.menu" :total="totalPrice()" :tableID="tableID" />
 		<md-dialog title="タイトル" :closable="true">内容</md-dialog>
 		<div class="header">
 			<div class="title">
 				<p>{{this.data.restrant_name}}</p>
-				<md-tag size="large" shape="circle" type="ghost" font-color="#FC7353">{{this.data.table_no}}</md-tag>
+				<md-tag
+					size="large"
+					shape="circle"
+					type="fill"
+					fill-color="#6495ED"
+					font-color="#fff"
+				>{{this.data.table_no}}</md-tag>
 			</div>
 			<img class="title" src="/shop.jpg" width="100" height="100" />
 		</div>
@@ -15,7 +20,7 @@
 			<md-scroll-view
 				:scrolling-x="false"
 				:auto-reflow="true"
-				style="height: 70vh; padding: 0 1.5rem;"
+				style="height: 65vh; padding: 0 1.5rem;"
 			>
 				<md-cell-item
 					class="scroll-view-item"
@@ -29,14 +34,17 @@
 					<a>
 						<md-tag
 							size="small"
-							type="ghost"
-							style="font-size: 0.7rem; margin-top: 5px;"
-							font-color="#FC7353"
+							shape="fillet"
+							type="fill"
+							fill-color="rgba(255, 91, 96, .1)"
+							font-weight="normal"
+							font-color="#FF5B60"
 						>アレルギー</md-tag>
 					</a>
 					<md-stepper v-model="item.cart" slot="right" min="0" max="5" read-only />
 				</md-cell-item>
 			</md-scroll-view>
+			<OrderBottom style="height: 200px" :totalPrice="totalPrice()" />
 		</div>
 	</div>
 </template>

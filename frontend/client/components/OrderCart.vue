@@ -20,7 +20,7 @@
 							</md-cell-item>
 						</div>
 					</md-field>
-					<md-button type="primary" @click="closeCart" round>
+					<md-button type="primary" @click="confirmOrder" round>
 						合計金額
 						<p style="margin: 0 3px; font-size: 1.5rem;">¥</p>
 						<md-amount :value="total" :precision="0" has-separator></md-amount>
