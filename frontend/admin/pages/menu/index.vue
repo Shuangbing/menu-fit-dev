@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<MenuForm :editData="editData" :categories="categories" />
+		<MenuForm :editData="editData" :categories="categories" :allergies="allergies" />
 		<div style="text-align: right; margin-bottom: 10px;">
 			<a-button type="primary" @click="showEditor(null)">新規追加</a-button>
 		</div>
@@ -72,7 +72,8 @@ export default class MenuIndex extends Vue {
 	async asyncData({ app }) {
 		return {
 			data: await app.$axios.$get("/admin/menus"),
-			categories: await app.$axios.$get("/admin/categories")
+			categories: await app.$axios.$get("/admin/categories"),
+			allergies: await app.$axios.$get("/admin/allergies")
 		};
 	}
 

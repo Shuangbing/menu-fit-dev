@@ -86,10 +86,7 @@
 
 				<a-form-item label="アレルギー源">
 					<a-select v-model="data.allergies" mode="multiple" placeholder="アレルギー源を選択してください">
-						<a-select-option value="pork">豚肉</a-select-option>
-						<a-select-option value="chicken">鶏肉</a-select-option>
-						<a-select-option value="lamp">羊肉</a-select-option>
-						<a-select-option value="dog">犬</a-select-option>
+						<a-select-option v-for="(item, index) in allergies" :key="index" :value="item._id">{{item.title}}</a-select-option>
 					</a-select>
 				</a-form-item>
 				<a-form-item>
@@ -108,7 +105,8 @@ import { Component, Vue, Prop, Watch } from "nuxt-property-decorator";
 })
 export default class MenuForm extends Vue {
 	@Prop() editData!: any;
-	@Prop() categories!: any;
+	@Prop() categories: any;
+	@Prop() allergies: any;
 
 	data: any = {};
 

@@ -1,4 +1,5 @@
-import { prop, modelOptions } from '@typegoose/typegoose';
+import { prop, modelOptions, arrayProp, Ref } from '@typegoose/typegoose';
+import { Allergy } from './allergy.model';
 
 @modelOptions({
     schemaOptions: {
@@ -9,6 +10,8 @@ import { prop, modelOptions } from '@typegoose/typegoose';
 export class User {
     @prop()
     openID: string;
+    @arrayProp({itemsRef: Allergy})
+    allergies: Ref<Allergy>[];
     @prop()
     profile: {
         name: string,

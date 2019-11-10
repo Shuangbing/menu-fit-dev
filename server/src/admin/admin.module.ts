@@ -6,9 +6,10 @@ import { TablesModule } from './tables/tables.module';
 import { OrdersModule } from './orders/orders.module';
 import { CategoriesModule } from './categories/categories.module';
 import { AuthAdminModule } from './auth/auth.module';
+import { AllergiesModule } from './allergies/allergies.module';
 
 @Module({
   controllers: [AdminController],
-  imports: [MenusModule, UsersModule, TablesModule, OrdersModule, CategoriesModule, AuthAdminModule],
+  imports: [MenusModule, UsersModule, TablesModule, OrdersModule, CategoriesModule, AuthAdminModule, AllergiesModule],
 })
 export class AdminModule {}

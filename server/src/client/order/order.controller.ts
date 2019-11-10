@@ -1,4 +1,4 @@
-import { Controller, Get, Param, HttpException, UseGuards, Post, Body, Req, Delete } from '@nestjs/common';
+import { Controller, Get, Param, HttpException, UseGuards, Post, Body, Req, Delete, Request } from '@nestjs/common';
 import { IsNotEmpty, IsNotIn } from 'class-validator';
 import { ApiUseTags, ApiOperation, ApiModelProperty } from '@nestjs/swagger';
 import { InjectModel } from 'nestjs-typegoose';
@@ -8,6 +8,7 @@ import { Menu } from '../../models/menu.model';
 import { Category } from '../../models/category.model';
 import { mongoose } from '@typegoose/typegoose';
 import { Order } from '../../models/order.model';
+import { Allergy } from '../../models/allergy.model';
 import { AuthGuard } from '@nestjs/passport';
 
 class CreateOrderDto {
@@ -37,23 +38,29 @@ export class OrderController {
         @InjectModel(Table) private readonly tableModel,
         @InjectModel(Menu) private readonly menuModel,
         @InjectModel(Category) private readonly categoryModel,
+        @InjectModel(Allergy) private readonly allergyModel,
     ) { }
 
     @Get(':id')
     @ApiOperation({ title: 'テーブルを指定しメニューを表示する' })
-    async menu(@Param('id') id: string) {
+    async menu(@Request() req: any, @Param('id') id: string) {
         if (!mongoose.Types.ObjectId.isValid(id)) { throw new HttpException('正しいIDを指定してください', 403); }
         const table = await this.tableModel.findById(id);
         if (!table) { throw new HttpException('テーブルが見つかりませんでした', 403); }
         const menu = await this.menuModel.find();
         if (!menu) { throw new HttpException('メニューがありません', 403); }
         const category = await this.categoryModel.aggregate().project({ name: '$_id', label: '$title' }).exec();
+        const allergy = await this.allergyModel.find();
 
         return {
             restrant_name: this.restrantName,
             table_no: table.tableNo,
             categories: category,
+            allergyArray: allergy,
             menu: menu,
+            user: {
+                allergies: req.user.allergies,
+            },
         };
     }
 
@@ -106,11 +113,11 @@ export class OrderController {
     @ApiOperation({ title: '指定注文の詳細を表示する' })
     async detail(@Param('id') id: string) {
         const order = await this.orderModel.findById(id)
-        .populate('table')
-        .populate({
-            path: 'detail.menu',
-            model: 'Menu',
-        });
+            .populate('table')
+            .populate({
+                path: 'detail.menu',
+                model: 'Menu',
+            });
 
         if (!order) { throw new HttpException('注文が見つかりませんでした', 403); }
         return {

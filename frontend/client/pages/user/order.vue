@@ -1,29 +1,31 @@
 <template>
-	<div class="main">
-		<md-field>
-			<md-cell-item
-				v-for="(item, index) in data.orders"
-				:key="index"
-				:title="item.table.tableNo"
-				:brief="item.createdAt"
-                arrow
-			>
-				<span slot="right">
-					<OrderPayment :payment="item.payment" />
-					<span>¥{{item.total}}</span>
-				</span>
-			</md-cell-item>
-		</md-field>
-	</div>
+	<md-scroll-view style="height: 80vh; padding: 1rem 1rem" ref="scrollView" @scroll="$_onScroll">
+		<md-cell-item
+			v-for="(item, index) in data.orders"
+			:key="index"
+			:title="item.table.tableNo"
+			:brief="item.createdAt"
+			arrow
+		>
+			<span slot="default">
+				<OrderStatus :status="item.status" />
+			</span>
+			<span slot="right">
+				<OrderPayment :payment="item.payment" />
+				<span>¥{{item.total}}</span>
+			</span>
+		</md-cell-item>
+	</md-scroll-view>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
 import OrderPayment from "../../components/OrderPayment.vue";
+import OrderStatus from "../../components/OrderStatus.vue";
 
 @Component({
 	layout: "user",
-	components: { OrderPayment }
+	components: { OrderPayment, OrderStatus }
 })
 export default class UserOrder extends Vue {
 	data: any = {};

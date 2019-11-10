@@ -33,6 +33,5 @@ export default class OrderPayment extends Vue {
 <style scoped>
 .main{
     display: inline;
-    margin: 10px 10px;
 }
 </style>

@@ -11,4 +11,9 @@
 .subButton {
 	padding: 1rem 2rem;
 }
+.main {
+	margin: 0;
+	padding: 0;
+	height: 10vh;
+}
 </style>

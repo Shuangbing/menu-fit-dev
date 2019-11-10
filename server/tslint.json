@@ -16,7 +16,8 @@
     "max-classes-per-file": false,
     "object-literal-shorthand": false,
     "no-trailing-whitespace": false,
-    "no-string-literal": false
+    "no-string-literal": false,
+    "array-type": false
   },
   "rulesDirectory": []
 }

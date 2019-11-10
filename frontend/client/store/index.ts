@@ -6,6 +6,7 @@ export const state = (): RootState => ({
   loading: false,
   authenticated: false,
   cartVisible: false,
+  allergyVisible: false
 })
 
 export const mutations: MutationTree<RootState> = {
@@ -17,6 +18,9 @@ export const mutations: MutationTree<RootState> = {
   },
   setCartVisible(state, value: boolean) {
     state.cartVisible = value
+  },
+  setAllergyVisible(state, value: boolean) {
+    state.allergyVisible = value
   }
 }
 

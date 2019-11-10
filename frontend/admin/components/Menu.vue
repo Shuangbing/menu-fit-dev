@@ -80,12 +80,16 @@ export default class Menu extends Vue {
 		},
 		{
 			icon: "table",
-			title: "テーブル管理",
+			title: "店舗管理",
 			key: "table",
 			subMenu: [
 				{
 					title: "テーブル",
 					path: "/table"
+				},
+				{
+					title: "アレルギー",
+					path: "/allergy"
 				}
 			]
 		},

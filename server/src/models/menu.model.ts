@@ -1,5 +1,6 @@
-import { prop, Ref, modelOptions } from '@typegoose/typegoose';
+import { prop, Ref, modelOptions, arrayProp } from '@typegoose/typegoose';
 import { Category } from './category.model';
+import { Allergy } from './allergy.model';
 
 @modelOptions({
     schemaOptions: {
@@ -18,8 +19,8 @@ export class Menu {
     category: Ref<Category>;
     @prop({ default: '' })
     picture: string;
-    @prop()
-    allergies: string[];
+    @arrayProp({itemsRef: Allergy})
+    allergies: Ref<Allergy>[];
     @prop()
     options: [{
         title: string;
