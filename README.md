@@ -1,5 +1,7 @@
 # Menu.fit
-- Smart Order System
+## Smart Order System
+
+![menu-fit-logo](./docs/logo.png)
 
 ## Usage
 ### Install
