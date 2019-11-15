@@ -29,7 +29,7 @@
           :title="item.title"
           no-border
         >
-          <img class="holder" slot="left" :src="item.picture" />
+          <img class="holder" slot="left" :src="item.picture" @click="showMenuDetail(item)" />
           <p style="font-size: 0.7rem; margin-top: 5px;">￥{{item.price}}</p>
           <a>
             <md-tag
@@ -55,13 +55,12 @@
 import { Component, Vue } from "nuxt-property-decorator";
 import OrderBottom from "../../components/OrderBottom.vue";
 import OrderCart from "../../components/OrderCart.vue";
-import MenuDetail from "../../components/MenuDetail.vue";
+import { Dialog } from "mand-mobile";
 
 @Component({
   components: {
     OrderBottom,
-    OrderCart,
-    MenuDetail
+    OrderCart
   }
 })
 export default class Order extends Vue {
@@ -76,6 +75,14 @@ export default class Order extends Vue {
       }
     });
     return allergiesTemp.length;
+  }
+
+  showMenuDetail(menu) {
+    Dialog.alert({
+      title: menu.title,
+      content: menu.summary,
+      confirmText: "閉じる",
+    });
   }
 
   async asyncData({ app, params }) {
