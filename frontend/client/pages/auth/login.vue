@@ -28,13 +28,16 @@ export default class Login extends Vue {
 	async mounted() {
 		//Auto Login by LINE
 		if (navigator.userAgent.includes("Line/")) {
-			this.LoginLine()
+			this.LoginLine();
 		}
 	}
 
 	async LoginLine() {
 		await this.$axios
-			.get("/client/auth/login?tableID=" + this.$route.query.tableID)
+			.get(
+				"/client/auth/login?tableID=" + this.$route.query.tableID ||
+					localStorage.tableID
+			)
 			.then(res => {
 				window.location = res.data;
 			});

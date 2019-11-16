@@ -61,14 +61,14 @@ export default class TableForm extends Vue {
 		}
 	}
 
-	getQRCodeURL(tableID) {
+	getQRCodeURL(tableId) {
 		if (process.browser) {
 			return (
 				window.location.protocol +
 				"//" +
 				window.location.host +
-				"/auth/login?tableID=" +
-				tableID
+				"/order?tableId=" +
+				tableId
 			);
 		}
 	}

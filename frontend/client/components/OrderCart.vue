@@ -58,7 +58,7 @@ export default class OrderCart extends Vue {
       .post("/client/order/" + this.tableID, { detail: order })
       .then(res => {
         this.$router.push({
-          path: "detail",
+          path: "/order/detail",
           query: { orderID: res.data.orderID, tableID: this.tableID }
         });
       });

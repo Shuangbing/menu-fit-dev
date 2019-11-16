@@ -24,7 +24,7 @@ export default class CallBack extends Vue {
                     localStorage.token = res.data.access_token;
                     this.$store.commit("setAuth", true);
 					if (this.$route.query.table) {
-						this.$router.push("/order/" + this.$route.query.table);
+						this.$router.push("/order");
 					}
 				}
 			});
