@@ -18,6 +18,7 @@ dotenv.config();
     TypegooseModule.forRoot(process.env.DB_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useFindAndModify: false,
     }),
     AdminModule,
     ClientModule,
