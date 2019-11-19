@@ -9,8 +9,6 @@
 				:style="{ lineHeight: '64px' }"
 			>
 				<a-menu-item key="1">ホーム</a-menu-item>
-				<a-menu-item key="2">会計レジ</a-menu-item>
-				<a-menu-item key="3">売上情報</a-menu-item>
 			</a-menu>
 		</a-layout-header>
 		<a-layout>
