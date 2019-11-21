@@ -73,7 +73,7 @@ export default class OrderDetail extends Vue {
         this.$axios
           .delete("/client/order/" + this.orderID)
           .then(res =>
-            this.$router.push("/order/" + this.$route.query.tableID)
+            this.$router.push("/order")
           );
       }
     });
