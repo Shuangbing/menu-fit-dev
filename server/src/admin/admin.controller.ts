@@ -8,6 +8,7 @@ dotenv.config();
 AWS.config.update({
     secretAccessKey: process.env.AWS_SECRETACCESSKEY,
     accessKeyId: process.env.AWS_ACCESSKEYID,
+    sessionToken: process.env.AWS_SESSIONTOKEN,
     region: process.env.AWS_REGION,
 });
 
