@@ -1,8 +1,8 @@
 <template>
-	<div>
-        <span>Error!</span>
-        <button>Back</button>
-    </div>
+  <div>
+    <span>Error!</span>
+    <button>Back</button>
+  </div>
 </template>
  
 

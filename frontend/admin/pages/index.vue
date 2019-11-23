@@ -1,7 +1,7 @@
 <template>
-	<div>
-		<nuxt />
-	</div>
+  <div>
+    <nuxt />
+  </div>
 </template>
 
 <script lang="ts">
@@ -9,11 +9,7 @@ import { Component, Vue } from "nuxt-property-decorator";
 import { State } from "vuex-class";
 import { Person } from "../types";
 @Component({
-	components: {
-		
-	}
+  components: {}
 })
-export default class extends Vue {
-	
-}
+export default class extends Vue {}
 </script>
