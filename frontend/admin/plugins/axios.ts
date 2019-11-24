@@ -14,7 +14,7 @@ export default function ({ $axios, redirect, store, app }) {
     })
 
     $axios.onError(error => {
-        if (error.response.status) redirect('/auth/login')
+        if (error.response.status == 403) redirect('/auth/login')
         if (error.response.data.message) message.info(error.response.data.message)
         store.commit('updateLoading', false)
     })

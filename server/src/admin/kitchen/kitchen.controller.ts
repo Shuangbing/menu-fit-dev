@@ -14,7 +14,7 @@ export class KitchenController {
 
     @Get('monitor')
     async index(@Query('key') key: string) {
-        if (key !== process.env.KITCHEN_KEY) { throw new HttpException('権限がありません', 403); }
+        if (key !== process.env.KITCHEN_KEY) { throw new HttpException('キッチンモニターのアクセス権限がありません', 401); }
         return await this.orderModel.find({status: 1})
             .populate('user')
             .populate('table')
