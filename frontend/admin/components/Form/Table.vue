@@ -76,6 +76,7 @@ export default class TableForm extends Vue {
       );
     }
   }
+  
   onClose() {
     this.data = {};
     this.$store.commit("showEditor", false);

@@ -73,6 +73,10 @@ export default class Menu extends Vue {
         {
           title: "注文一覧",
           path: "/order"
+        },
+        {
+          title: "キッチンモニター",
+          path: "/kitchen"
         }
       ]
     },

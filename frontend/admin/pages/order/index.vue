@@ -16,7 +16,7 @@
         <a-tag v-if="status == -1" color="#f50">キャンセル</a-tag>
         <a-tag v-if="status == 0" color="#2db7f5">支払待ち</a-tag>
         <a-tag v-if="status == 1" color="#87d068">支払済み</a-tag>
-        <a-tag v-if="status == 2" color="#f50">退店</a-tag>
+        <a-tag v-if="status == 2" color="#333">完了</a-tag>
       </template>
       <template slot="payment" slot-scope="payment">
         <a-tag v-if="payment == 'line-pay'" color="blue">LINE Pay</a-tag>
