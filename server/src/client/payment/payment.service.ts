@@ -12,8 +12,8 @@ export class PaymentService {
         };
 
         const data = {
-            productName: 'Menu.fitのお会計',
-            productImageUrl: 'https://popcorn-images-aws.s3.ap-northeast-1.amazonaws.com/popcorn_white.png',
+            productName: 'menu.fitのお会計',
+            productImageUrl: 'https://raw.githubusercontent.com/Shuangbing/menu-fit-dev/master/docs/logo.png',
             amount: amount,
             currency: 'JPY',
             orderId: orderID,

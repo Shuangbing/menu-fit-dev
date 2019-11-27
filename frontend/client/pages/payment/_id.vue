@@ -1,7 +1,7 @@
 <template>
 	<div class="payment-view">
 		<div class="target">
-			<img src="https://popcorn-images-aws.s3.ap-northeast-1.amazonaws.com/popcorn_white.png" />
+			<img src="https://raw.githubusercontent.com/Shuangbing/menu-fit-dev/master/docs/logo.png" />
 		</div>
 		<md-activity-indicator style="margin: 10px 0;" v-if="loading" type="carousel" :size="20"></md-activity-indicator>
 		<div v-if="status == 0">
