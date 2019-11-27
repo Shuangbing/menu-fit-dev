@@ -42,7 +42,7 @@
 							font-color="#FF5B60"
 						>アレルギー</md-tag>
 					</a>
-					<md-stepper v-model="item.cart" slot="right" min="0" max="5" read-only />
+					<md-stepper v-model="item.cart" slot="right" min="0" :max="item.max" read-only />
 				</md-cell-item>
 			</md-scroll-view>
 			<OrderBottom style="height: 200px" :totalPrice="totalPrice()" />

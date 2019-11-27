@@ -72,7 +72,7 @@ export class OrderController {
         createOrderDto.total = 0;
         for (const element of createOrderDto.detail) {
             const menu = await this.menuModel.findById(element.menu);
-            if (element.amount < 1) {
+            if (element.amount < 1 || element.amount > menu.max) {
                 throw new HttpException('注文情報正しくありません', 403);
             }
             if (menu) {

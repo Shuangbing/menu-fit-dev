@@ -13,13 +13,15 @@ export class Menu {
     title: string;
     @prop()
     price: string;
+    @prop({ default: 3 })
+    max: number;
     @prop()
     summary: string;
     @prop({ ref: Category })
     category: Ref<Category>;
     @prop({ default: '' })
     picture: string;
-    @arrayProp({itemsRef: Allergy})
+    @arrayProp({ itemsRef: Allergy })
     allergies: Ref<Allergy>[];
     @prop()
     options: [{
