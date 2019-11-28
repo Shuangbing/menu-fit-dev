@@ -37,7 +37,6 @@ export class PaymentService {
             .catch(error => { throw new HttpException('支払いの申請ができませんでした', 403); });
     }
 
-
     async LINE_PAY_CONFIRM(amount: number, transactionId: string) {
         const headers = {
             'Content-Type': 'application/json',
@@ -54,6 +53,8 @@ export class PaymentService {
             .then(res => {
                 if (res.data.returnCode === '0000') {
                     return {
+                        payment: 'line-pay',
+                        status: 1,
                         transactionId: res.data.transactionId,
                         orderId: res.data.orderId,
                     };

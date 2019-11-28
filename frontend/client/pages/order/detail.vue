@@ -59,7 +59,28 @@ export default class OrderDetail extends Vue {
     await this.$axios
       .get("/client/payment/" + this.payment + "/" + this.orderID)
       .then(res => {
-        window.location = res.data.paymentURL;
+        switch (res.data.payment) {
+          case "line-pay":
+            window.location = res.data.paymentDetail.paymentURL;
+            break;
+          case "cash":
+            Dialog.confirm({
+              title: "確認",
+              content:
+                "店員さんを呼び出しますので代金¥" +
+                res.data.total +
+                "を用意してください",
+              cancelText: "いいえ",
+              confirmText: "はい",
+              onConfirm: () => {
+                // 店員呼び出し
+                alert("呼び出し操作");
+                this.$router.push("/payment/" + this.orderID);
+              }
+            });
+          default:
+            break;
+        }
       });
   }
 
@@ -72,9 +93,7 @@ export default class OrderDetail extends Vue {
       onConfirm: () => {
         this.$axios
           .delete("/client/order/" + this.orderID)
-          .then(res =>
-            this.$router.push("/order")
-          );
+          .then(res => this.$router.push("/order"));
       }
     });
   }

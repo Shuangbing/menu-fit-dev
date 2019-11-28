@@ -28,7 +28,7 @@ export class UserController {
             name: req.user.profile.name,
             avatar: req.user.profile.picture,
             allergies: req.user.allergies,
-            allergiesArray: await this.allergyModel.aggregate().project({value :'$_id', text: '$title'}),
+            allergiesArray: await this.allergyModel.aggregate().project({ value: '$_id', text: '$title' }),
         };
     }
 
@@ -46,7 +46,7 @@ export class UserController {
     @Get('allergy')
     async allergyList() {
         return {
-            allergies: await this.allergyModel.aggregate().project({value :'$_id', text: '$title'}),
+            allergies: await this.allergyModel.aggregate().project({ value: '$_id', text: '$title' }),
         };
     }
 

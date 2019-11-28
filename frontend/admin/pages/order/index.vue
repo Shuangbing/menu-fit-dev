@@ -1,5 +1,8 @@
 <template>
   <div class="main">
+    <a-modal title="会計" :visible="accountingVisible" @cancel="accountingVisible = false">
+      <p>{{ModalText}}</p>
+    </a-modal>
     <div style="text-align: right; margin-bottom: 10px;">
       <a-checkbox @change="onChange">自動更新</a-checkbox>
       <a-button type="primary" icon="redo" :loading="$store.state.loading" @click="refresh">更新</a-button>
@@ -17,6 +20,7 @@
         <a-tag v-if="status == 0" color="#2db7f5">支払待ち</a-tag>
         <a-tag v-if="status == 1" color="#87d068">支払済み</a-tag>
         <a-tag v-if="status == 2" color="#333">完了</a-tag>
+        <a-button v-if="status == 0" @click="accountingVisible = true" type="default">会計</a-button>
       </template>
       <template slot="payment" slot-scope="payment">
         <a-tag v-if="payment == 'line-pay'" color="blue">LINE Pay</a-tag>
@@ -51,6 +55,7 @@ export default class OrderIndex extends Vue {
   pagination = {};
   loading = false;
   intervalId: NodeJS.Timer | null;
+  accountingVisible:boolean = false;
 
   columns = [
     {
@@ -83,7 +88,7 @@ export default class OrderIndex extends Vue {
     {
       title: "注文詳細",
       dataIndex: "detail",
-      width: "10rem",
+      width: "15rem",
       scopedSlots: { customRender: "detail" }
     }
   ];

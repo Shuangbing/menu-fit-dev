@@ -97,9 +97,9 @@ export class OrderController {
 
     @Delete(':id')
     @ApiOperation({ title: '注文をキャンセルする' })
-    async cancel(@Param('id') id: string) {
+    async cancel(@Req() request: any, @Param('id') id: string) {
         if (!mongoose.Types.ObjectId.isValid(id)) { throw new HttpException('正しいIDを指定してください', 403); }
-        const order = await this.orderModel.findById(id);
+        const order = await this.orderModel.findOne({ _id: id, user: request.user._id });
         if (!order) { throw new HttpException('注文がありません', 403); }
         if (order.status !== 0) { throw new HttpException('支払中の注文はキャンセルできません', 403); }
         order.status = -1;
@@ -111,8 +111,8 @@ export class OrderController {
 
     @Get('detail/:id')
     @ApiOperation({ title: '指定注文の詳細を表示する' })
-    async detail(@Param('id') id: string) {
-        const order = await this.orderModel.findById(id)
+    async detail(@Req() request: any, @Param('id') id: string) {
+        const order = await this.orderModel.findOne({ _id: id, user: request.user._id })
             .populate('table')
             .populate({
                 path: 'detail.menu',
