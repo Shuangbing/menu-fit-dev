@@ -21,6 +21,7 @@
     "generate": "ENV=production nuxt-ts generate"
   },
   "devDependencies": {
-    "@nuxt/typescript-build": "0.3.3"
+    "@nuxt/typescript-build": "0.3.3",
+    "url-loader": "^3.0.0"
   }
 }

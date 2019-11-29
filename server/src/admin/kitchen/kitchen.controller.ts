@@ -30,7 +30,7 @@ export class KitchenController {
                 path: 'detail.menu',
                 model: 'Menu',
             })
-            .sort('createdAt');
+            .sort('updatedAt');
     }
 
     @Post('monitor')
@@ -44,7 +44,7 @@ export class KitchenController {
                 path: 'detail.menu',
                 model: 'Menu',
             })
-            .sort('createdAt');
+            .sort('updatedAt');
     }
 
 }
