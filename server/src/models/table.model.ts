@@ -12,4 +12,6 @@ export class Table {
     tableNo: string;
     @prop({ ref: User })
     user: Ref<User>;
+    @prop({ default: false })
+    smoking: boolean;
 }

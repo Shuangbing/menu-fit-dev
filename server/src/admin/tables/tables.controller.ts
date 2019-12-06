@@ -9,6 +9,9 @@ class CreateTableDto {
     @ApiModelProperty({ description: 'テーブルの番号', example: 'A-1' })
     @IsNotEmpty({ message: 'テーブルの番号' })
     tableNo: string;
+    @ApiModelProperty({ description: '喫煙席', example: 'fasle' })
+    @IsNotEmpty({ message: '喫煙席' })
+    smoking: boolean;
 }
 
 @Controller('admin/tables')

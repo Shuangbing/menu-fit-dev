@@ -55,6 +55,7 @@ export class OrderController {
         return {
             restrant_name: this.restrantName,
             table_no: table.tableNo,
+            table_smoking: table.smoking,
             categories: category,
             allergyArray: allergy,
             menu: menu,

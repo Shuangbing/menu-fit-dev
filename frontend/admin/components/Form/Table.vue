@@ -11,13 +11,10 @@
     >
       <a-form layout="vertical">
         <a-form-item label="テーブル番号">
-          <a-input
-            v-model="data.tableNo"
-            v-decorator="[
-          'data.tableNo',
-          {rules: [{ required: true, message: 'テーブル番号を入力してください' }]}
-        ]"
-          />
+          <a-input v-model="data.tableNo" />
+        </a-form-item>
+        <a-form-item label="喫煙席">
+          <a-switch v-model="data.smoking" />
         </a-form-item>
         <a-form-item v-if="this.editData" label="認識ID">
           <span>{{this.data._id}}</span>
@@ -76,7 +73,7 @@ export default class TableForm extends Vue {
       );
     }
   }
-  
+
   onClose() {
     this.data = {};
     this.$store.commit("showEditor", false);
