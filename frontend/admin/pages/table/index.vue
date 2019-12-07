@@ -21,6 +21,10 @@
           <a-button type="danger">削除</a-button>
         </a-popconfirm>
       </template>
+      <template slot="smoking" slot-scope="smoking">
+        <a-tag v-if="smoking" color="#108ee9">喫煙席</a-tag>
+        <a-tag v-if="!smoking" color="#f50">禁煙席</a-tag>
+      </template>
     </a-table>
   </div>
 </template>
@@ -40,8 +44,12 @@ export default class TableIndex extends Vue {
   columns = [
     {
       title: "テーブル",
-      dataIndex: "tableNo",
-      width: "60%"
+      dataIndex: "tableNo"
+    },
+    {
+      title: "喫煙席",
+      dataIndex: "smoking",
+      scopedSlots: { customRender: "smoking" }
     },
     {
       title: "操作",

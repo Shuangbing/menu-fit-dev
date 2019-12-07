@@ -40,7 +40,6 @@ export default class CategoryIndex extends Vue {
     {
       title: "カテゴリー",
       dataIndex: "title",
-      width: "60%"
     },
     {
       title: "操作",

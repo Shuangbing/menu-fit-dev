@@ -5,10 +5,11 @@
       <a-menu
         theme="dark"
         mode="horizontal"
-        :defaultSelectedKeys="['1']"
+        :defaultSelectedKeys="['home']"
         :style="{ lineHeight: '64px' }"
       >
-        <a-menu-item key="1">ホーム</a-menu-item>
+        <a-menu-item key="home">ホーム</a-menu-item>
+        <a-menu-item @click="adminLogout">ログアウト</a-menu-item>
       </a-menu>
     </a-layout-header>
     <a-layout>
@@ -49,6 +50,12 @@ import { Component, Prop, Vue } from "nuxt-property-decorator";
 
 @Component({})
 export default class Menu extends Vue {
+
+  adminLogout() {
+    localStorage.removeItem('adminToken');
+    this.$router.push('/auth/login')
+  }
+
   menuClick(item: any) {
     this.$router.push(item.key);
   }
