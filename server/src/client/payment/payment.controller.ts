@@ -20,7 +20,7 @@ class PaymentConfirm {
 
 @Controller('client/payment')
 @ApiUseTags('client-支払い')
-@UseGuards(AuthGuard())
+@UseGuards(AuthGuard('client'))
 export class PaymentController {
     constructor(
         @InjectModel(User) private readonly userModel,

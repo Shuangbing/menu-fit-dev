@@ -12,7 +12,7 @@ class AllergyDto {
 
 @Controller('client/user')
 @ApiUseTags('client-ユーザ')
-@UseGuards(AuthGuard())
+@UseGuards(AuthGuard('client'))
 export class UserController {
 
     constructor(

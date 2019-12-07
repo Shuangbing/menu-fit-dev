@@ -28,7 +28,7 @@ class OrderDetail {
 
 @Controller('client/order')
 @ApiUseTags('client-注文')
-@UseGuards(AuthGuard())
+@UseGuards(AuthGuard('client'))
 export class OrderController {
     public restrantName = process.env.RESTRANT_NAME;
 

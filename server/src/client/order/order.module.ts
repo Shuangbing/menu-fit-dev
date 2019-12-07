@@ -13,7 +13,7 @@ import { Allergy } from '../../models/allergy.model';
   controllers: [OrderController],
   imports: [
     TypegooseModule.forFeature([User, Table, Menu, Category, Order, Allergy]),
-    PassportModule.register({ defaultStrategy: 'jwt' }),
+    
   ],
 })
 export class OrderModule {}

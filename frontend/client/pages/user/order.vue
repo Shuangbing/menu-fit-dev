@@ -18,7 +18,7 @@
       </md-cell-item>
     </md-scroll-view>
     <div class="sub-button">
-      <md-button type="primary" round @click="$router.go(-1)">戻る</md-button>
+      <md-button type="primary" round @click="$router.push('/user')">戻る</md-button>
     </div>
   </div>
 </template>

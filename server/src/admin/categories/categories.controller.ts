@@ -12,7 +12,7 @@ class CreateCategoryDto {
 }
 
 @Controller('admin/categories')
-@UseGuards(AuthGuard('jwt-admin'))
+@UseGuards(AuthGuard('admin'))
 @ApiUseTags('カテゴリー')
 export class CategoriesController {
     constructor(

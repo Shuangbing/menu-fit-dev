@@ -15,7 +15,7 @@ class CreateTableDto {
 }
 
 @Controller('admin/tables')
-@UseGuards(AuthGuard('jwt-admin'))
+@UseGuards(AuthGuard('admin'))
 @ApiUseTags('テーブル')
 export class TablesController {
     constructor(

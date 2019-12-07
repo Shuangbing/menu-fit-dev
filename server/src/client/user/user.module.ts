@@ -7,8 +7,7 @@ import { Order } from '../../models/order.model';
 import { Allergy } from '../../models/allergy.model';
 
 @Module({
-  imports: [TypegooseModule.forFeature([User, Order, Allergy]),
-  PassportModule.register({ defaultStrategy: 'jwt' })],
+  imports: [TypegooseModule.forFeature([User, Order, Allergy])],
   controllers: [UserController],
 })
 export class UserModule { }

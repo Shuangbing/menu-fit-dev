@@ -12,7 +12,6 @@ import { PassportModule } from '@nestjs/passport';
 @Module({
   imports: [
     TypegooseModule.forFeature([User, Table, Menu, Category, Order]),
-    PassportModule.register({ defaultStrategy: 'jwt' }),
   ],
   controllers: [PaymentController],
   providers: [PaymentService],

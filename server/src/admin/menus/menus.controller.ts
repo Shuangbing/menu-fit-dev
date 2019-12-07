@@ -27,7 +27,7 @@ class MenuOption {
 }
 
 @Controller('admin/menus')
-@UseGuards(AuthGuard('jwt-admin'))
+@UseGuards(AuthGuard('admin'))
 @ApiUseTags('メニュー')
 export class MenusController {
     constructor(

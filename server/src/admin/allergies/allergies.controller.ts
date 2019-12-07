@@ -12,7 +12,7 @@ class CreateAllergyDto {
 }
 
 @Controller('admin/allergies')
-@UseGuards(AuthGuard('jwt-admin'))
+@UseGuards(AuthGuard('admin'))
 @ApiUseTags('アレルギー')
 export class AllergiesController {
     constructor(

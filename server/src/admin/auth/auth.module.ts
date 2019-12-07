@@ -6,7 +6,6 @@ import { AuthService } from './auth.service';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
-import { ClientModule } from '../../client/client.module';
 
 @Module({
     controllers: [AuthController],
@@ -14,7 +13,7 @@ import { ClientModule } from '../../client/client.module';
         PassportModule.register({ defaultStrategy: 'jwt' }),
         JwtModule.registerAsync({
             useFactory: () => ({
-                secret: 'secretKey',
+                secret: process.env.SECRET_KEY,
             }),
         }),
         TypegooseModule.forFeature([Admin]),

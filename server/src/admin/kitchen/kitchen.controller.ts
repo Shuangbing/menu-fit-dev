@@ -12,7 +12,7 @@ export class KitchenController {
         @InjectModel(Order) private readonly orderModel,
     ) { }
 
-    @UseGuards(AuthGuard('jwt-admin'))
+    @UseGuards(AuthGuard('admin'))
     @Get('authCode')
     async authCode() {
         return {

@@ -13,7 +13,7 @@ import { JwtStrategy } from './jwt.strategy';
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
       useFactory: () => ({
-        secret: 'secretKey',
+        secret: process.env.SECRET_KEY,
       }),
     }),
     TypegooseModule.forFeature([User]),
