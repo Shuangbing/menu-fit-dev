@@ -5,7 +5,7 @@
 			icon="warn"
 			mode="closable"
 			type="warning"
-		>禁煙席のため喫煙をご遠慮ください</md-notice-bar>
+		>禁煙席のため喫煙はご遠慮ください</md-notice-bar>
 		<OrderCart :menu="data.menu" :total="totalPrice()" :tableID="tableID" />
 		<md-dialog title="タイトル" :closable="true">内容</md-dialog>
 		<div class="header">
