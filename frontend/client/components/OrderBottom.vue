@@ -43,8 +43,8 @@ export default class OrderButton extends Vue {
 
 <style>
 .order-bottom {
-	padding-bottom: max(20px, constant(safe-area-inset-bottom));
-	padding-bottom: max(20px, env(safe-area-inset-bottom));
+	padding-bottom: constant(safe-area-inset-bottom);
+	padding-bottom: env(safe-area-inset-bottom);
 }
 .price {
 	font-weight: 500;
