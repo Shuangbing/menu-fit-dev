@@ -138,7 +138,7 @@ body {
 .order-view {
 	display: grid;
 	height: 100vh;
-  grid-template-rows: 20% 65% 15%;
+  grid-template-rows: 20% 65% 20%;
   grid-template-columns: 100%;
 }
 
@@ -150,7 +150,6 @@ body {
 
 .footer {
 	position: fixed;
-	bottom: 0;
 	left: 0;
 	right: 0;
 	grid-row: 3;
