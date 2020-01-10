@@ -1,4 +1,4 @@
-# Menu.fit
+# MENU.Fit
 ## Smart Order System
 
 ![menu-fit-logo](./docs/logo.png)
