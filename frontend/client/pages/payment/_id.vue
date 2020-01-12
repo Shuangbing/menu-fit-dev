@@ -18,18 +18,19 @@
 
     <div v-if="data.status == 1">
       <p>支払い完了しました</p>
-	  <p>しばらくお待ちください</p>
+      <p>しばらくお待ちください</p>
       <md-button type="primary" round @click="$router.push('/user/order')">注文履歴に戻る</md-button>
       <md-button type="default" round @click="$router.push('/order')">メニューに戻る</md-button>
     </div>
-    <div v-if="status == -1">
+    <div v-if="data.status == -1">
       <p>支払いの確認できませんでした</p>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
+import { Component, Vue, Watch } from "nuxt-property-decorator";
+import { Dialog } from "mand-mobile";
 
 @Component({})
 export default class Payment extends Vue {
@@ -40,6 +41,18 @@ export default class Payment extends Vue {
   transactionId = null;
   data: any = {};
   reloadProcessId: NodeJS.Timer;
+
+  @Watch("data.status", { immediate: true, deep: true })
+  redirctQuestionnaire() {
+    if (this.data.status == 1) {
+      Dialog.alert({
+        title: '注文完了',
+        content: 'アンケートのご記入お願いいたします',
+        confirmText: 'はい',
+        onConfirm: () => window.location.href = 'https://docs.google.com/forms/u/2/d/e/1FAIpQLScxY06VxnggvRhTnBMzJ2G6oSzB1jEPsfa-BEx47v_VKC2twA/viewform?usp=sf_link',
+      })
+    }
+  }
 
   async loadPaymentStatus() {
     this.tableId = localStorage.tableID;
