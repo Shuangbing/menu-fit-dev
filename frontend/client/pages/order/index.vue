@@ -97,7 +97,7 @@ export default class Order extends Vue {
         cancelText: "いいえ",
         onConfirm: () => {
 			this.$store.commit("setAllergyVisible", true)
-			this.$router.push('user')
+			this.$router.push('/user')
 		}
       });
       localStorage.firsttimeAlert = true;
