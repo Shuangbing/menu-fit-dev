@@ -14,6 +14,7 @@ export class User {
     allergies: Ref<Allergy>[];
     @prop()
     profile: {
+        first_auth: boolean,
         name: string,
         picture: string,
         email: string,

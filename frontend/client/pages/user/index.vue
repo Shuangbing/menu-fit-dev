@@ -13,7 +13,7 @@
     </div>
 
     <div class="sub-button">
-      <md-button type="primary" round @click="$router.push('/order')">戻る</md-button>
+      <md-button type="primary" round @click="$router.push('/order')">注文画面に戻る</md-button>
     </div>
   </div>
 </template>

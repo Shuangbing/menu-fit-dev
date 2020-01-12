@@ -49,6 +49,7 @@ export class AuthService {
             const user = await this.userModel.findOne({ openID: userInfo.sub });
             if (user) {
                 const profile = {
+                    first_auth: false,
                     access_token: tokenPost.data.access_token,
                     refresh_token: tokenPost.data.refresh_token,
                     name: userInfo['name'],
@@ -60,6 +61,7 @@ export class AuthService {
                 const userCreate = await this.userModel.create({
                     openID: userInfo['sub'],
                     profile: {
+                        first_auth: true,
                         access_token: tokenPost.data.access_token,
                         refresh_token: tokenPost.data.refresh_token,
                         name: userInfo['name'],

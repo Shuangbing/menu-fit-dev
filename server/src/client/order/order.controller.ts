@@ -60,6 +60,7 @@ export class OrderController {
             allergyArray: allergy,
             menu: menu,
             user: {
+                first_auth: req.user.profile.first_auth,
                 allergies: req.user.allergies,
             },
         };
