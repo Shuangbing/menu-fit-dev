@@ -20,9 +20,6 @@ export default {
   generate: {
     dir: "../../server/public/client",
   },
-  router: {
-    base: process.env.BASE_DIR || '/',
-  },
   build: {
     postcss: [
       require('postcss-pxtorem')({
@@ -38,7 +35,7 @@ export default {
     "@nuxtjs/router"
   ],
   axios: {
-    baseURL: process.env.APP_API_URL || '/api'
+    baseURL: process.env.APP_API_URL || 'https://dev-api.menu.fit/api'
   },
   plugins: ["./plugins/mand-mobile", "./plugins/axios"]
 }

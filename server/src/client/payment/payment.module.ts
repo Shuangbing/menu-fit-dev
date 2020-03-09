@@ -10,10 +10,8 @@ import { Order } from '../../models/order.model';
 import { PassportModule } from '@nestjs/passport';
 
 @Module({
-  imports: [
-    TypegooseModule.forFeature([User, Table, Menu, Category, Order]),
-  ],
+  imports: [TypegooseModule.forFeature([User, Table, Menu, Category, Order])],
   controllers: [PaymentController],
   providers: [PaymentService],
 })
-export class PaymentModule { }
+export class PaymentModule {}

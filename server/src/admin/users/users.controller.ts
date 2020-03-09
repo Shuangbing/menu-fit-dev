@@ -8,14 +8,11 @@ import { AuthGuard } from '@nestjs/passport';
 @UseGuards(AuthGuard('admin'))
 @ApiUseTags('ユーザー')
 export class UsersController {
-    constructor(
-        @InjectModel(User) private readonly userModel,
-    ) {}
+  constructor(@InjectModel(User) private readonly userModel) {}
 
-    @Get()
-    @ApiOperation({ title: 'ユーザーリストを表示する' })
-    async index() {
-        return await this.userModel.find();
-    }
-    
+  @Get()
+  @ApiOperation({ title: 'ユーザーリストを表示する' })
+  async index() {
+    return await this.userModel.find();
+  }
 }

@@ -13,7 +13,6 @@ import { Allergy } from '../../models/allergy.model';
   controllers: [OrderController],
   imports: [
     TypegooseModule.forFeature([User, Table, Menu, Category, Order, Allergy]),
-    
   ],
 })
 export class OrderModule {}

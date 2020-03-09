@@ -8,4 +8,4 @@ import { Category } from '../../models/category.model';
   imports: [TypegooseModule.forFeature([Menu, Category])],
   controllers: [MenusController],
 })
-export class MenusModule { }
+export class MenusModule {}

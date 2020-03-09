@@ -1,14 +1,13 @@
 import { prop, modelOptions } from '@typegoose/typegoose';
 
 @modelOptions({
-    schemaOptions: {
-        timestamps: true,
-    },
+  schemaOptions: {
+    timestamps: true,
+  },
 })
-
 export class Admin {
-    @prop()
-    username: string;
-    @prop()
-    password: string;
+  @prop()
+  username: string;
+  @prop()
+  password: string;
 }

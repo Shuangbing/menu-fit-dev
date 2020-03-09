@@ -20,9 +20,6 @@ export default {
   generate: {
     dir: "../../server/public/admin",
   },
-  router: {
-    base: process.env.BASE_DIR || '/admin',
-  },
   build: {
     loaders: {
       vue: {
@@ -47,7 +44,7 @@ export default {
     "@nuxtjs/axios",
   ],
   axios: {
-    baseURL: process.env.APP_API_URL || '/api'
+    baseURL: process.env.APP_API_URL || 'https://dev-api.menu.fit/api'
   },
   plugins: ["./plugins/ant-design-vue", "./plugins/axios"]
 }

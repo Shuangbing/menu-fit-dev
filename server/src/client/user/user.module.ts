@@ -10,4 +10,4 @@ import { Allergy } from '../../models/allergy.model';
   imports: [TypegooseModule.forFeature([User, Order, Allergy])],
   controllers: [UserController],
 })
-export class UserModule { }
+export class UserModule {}

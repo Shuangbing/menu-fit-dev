@@ -11,6 +11,15 @@ import { KitchenModule } from './kitchen/kitchen.module';
 
 @Module({
   controllers: [AdminController],
-  imports: [MenusModule, UsersModule, TablesModule, OrdersModule, CategoriesModule, AuthAdminModule, AllergiesModule, KitchenModule],
+  imports: [
+    MenusModule,
+    UsersModule,
+    TablesModule,
+    OrdersModule,
+    CategoriesModule,
+    AuthAdminModule,
+    AllergiesModule,
+    KitchenModule,
+  ],
 })
 export class AdminModule {}
