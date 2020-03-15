@@ -1,0 +1,15 @@
+deploy-staging:
+  stage: deploy
+  image: ubuntu:18.04
+  only:
+    variables:
+      - $CI_COMMIT_REF_NAME == "dev"
+  before_script:
+    - apt-get update -qy
+    - apt-get install -y git
+  script:
+    # push to heroku server
+    - git checkout dev
+    - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/staging-api-menu-fit.git
+    - git push -f heroku dev:master
+    - echo "Deployed to staging server"

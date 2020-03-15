@@ -1,17 +1,13 @@
-# MENU.Fit
-## Smart Order System
+# MENU.Fit - API
 
-![menu-fit-logo](./docs/logo.png)
+## dev-server
 
-## Usage
-### Install
-- frontend -> client & admin -> yarn / npm install
-- server -> yarn / npm install
+* dev-api.menu.fit
 
-### Develop Server
-- frontend -> client & admin -> yarn dev / npm run dev
-- server -> nest start
+## sandbox-server
 
-### Build
-- frontend -> client & admin -> yarn build / npm run build
-- server -> nest build
+* sandbox-api.menu.fit
+
+## prod-server
+
+* api.menu.fit
